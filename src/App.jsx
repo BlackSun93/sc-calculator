@@ -22,13 +22,12 @@ function App() {
         {[
           { id: "calculator", label: "Chair Capacity Calculator" },
           { id: "emailer", label: "Complementary Emailer" },
-          { id: "tracker", label: "Omnichannel Tracker" },
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             padding: "8px 20px", borderRadius: 8,
-            border: tab === t.id ? "1px solid #0065AC" : "1px solid #E2E6EC",
-            background: tab === t.id ? "rgba(0,101,172,0.08)" : "transparent",
-            color: tab === t.id ? "#0065AC" : "#6B7B8B",
+            border: "none",
+            background: tab === t.id ? "#0065AC" : "#E2E6EC",
+            color: tab === t.id ? "#fff" : "#4A5A6A",
             fontSize: 11, fontWeight: 700, cursor: "pointer",
             letterSpacing: 0.5, fontFamily: "'Segoe UI', system-ui, sans-serif",
             transition: "all 0.2s ease"
