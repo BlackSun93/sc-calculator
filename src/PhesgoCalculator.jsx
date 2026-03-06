@@ -121,46 +121,6 @@ export default function PhesgoCalculator() {
           </div>
         </div>
 
-        {/* Input */}
-        <div style={{ borderRadius: 14, padding: "14px 16px", background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", marginBottom: 16 }}>
-          <div style={{ fontSize: 10, color: C.textMuted, marginBottom: 8 }}>How many HER2+ patients per year at this center?</div>
-          <input type="number" value={her2}
-            onChange={e => setHer2(Math.max(1, Number(e.target.value) || 1))}
-            style={{ width: "100%", background: "transparent", border: "none", borderBottom: `2px solid ${C.cardBorder}`, color: C.textPrimary, fontSize: 32, fontWeight: 900, outline: "none", textAlign: "center", padding: "4px 0", fontVariantNumeric: "tabular-nums" }}
-            onFocus={e => e.target.style.borderBottomColor = C.accentBlue}
-            onBlur={e => e.target.style.borderBottomColor = C.cardBorder}
-          />
-          <div style={{ fontSize: 8, color: C.textDim, marginTop: 6, textAlign: "center" }}>
-            This center's volume is equivalent to <strong>{(share * 100).toFixed(1)}%</strong> of the 3-center study cohort ({STUDY_HER2_PTS.toLocaleString()} pts)
-          </div>
-        </div>
-
-        {/* Slider */}
-        <div style={{
-          position: "relative", borderRadius: 16, padding: "14px 20px", marginBottom: 22,
-          background: "linear-gradient(135deg, rgba(0,133,124,0.06), rgba(0,101,172,0.06))",
-          border: `1px solid rgba(0,133,124,0.2)`, overflow: "hidden"
-        }}>
-          <div style={{ position: "absolute", top: 0, left: 0, width: `${adopt}%`, height: "100%", background: "linear-gradient(90deg, rgba(0,133,124,0.04), rgba(0,133,124,0.08))", transition: "width 0.4s ease", pointerEvents: "none" }} />
-          <div style={{ position: "relative", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-            <div>
-              <div style={{ fontSize: 10, color: C.accentTeal, letterSpacing: 1.5, fontWeight: 600 }}>SC ADOPTION RATE</div>
-              <div style={{ fontSize: 10, color: C.textMuted, marginTop: 1 }}>What if we switch this %?</div>
-            </div>
-            <div>
-              <span style={{ fontSize: 38, fontWeight: 900, color: C.accentTeal, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{adopt}</span>
-              <span style={{ fontSize: 15, fontWeight: 700, color: C.accentTeal }}>%</span>
-            </div>
-          </div>
-          <input type="range" min={10} max={100} step={5} value={adopt}
-            onChange={e => setAdopt(Number(e.target.value))}
-            style={{ position: "relative", width: "100%", marginTop: 10, height: 6, accentColor: "#00857C" }}
-          />
-          <div style={{ position: "relative", display: "flex", justifyContent: "space-between", fontSize: 8, color: C.textDim, marginTop: 3 }}>
-            {[10, 25, 50, 75, 100].map(v => <span key={v} style={{ fontWeight: adopt === v ? 700 : 400, color: adopt === v ? C.accentTeal : C.textDim }}>{v}%</span>)}
-          </div>
-        </div>
-
         {/* === RESULTS === */}
         <div style={{ fontSize: 9, color: C.textMuted, letterSpacing: 2.5, fontWeight: 700, marginBottom: 10 }}>THIS CENTER'S PROJECTED IMPACT</div>
 
@@ -262,6 +222,57 @@ export default function PhesgoCalculator() {
           <div style={{ fontSize: 7.5, color: C.textMuted, lineHeight: 2 }}>
             <strong style={{ color: C.textSecondary }}>[1]</strong> Shash E, Khorshid OMR, Amin HM, et al. <em>Ann Oncol.</em> 2025;36(S2):2321P.
             <br/><strong style={{ color: C.textSecondary }}>Method:</strong> Chair-hours & visits are scaled linearly from the study's stated 100% maximums (7,141 hrs / 1,888 visits per month), then proportioned by the user's input patient volume vs the study's 1,965 patient cohort size.
+          </div>
+        </div>
+
+        {/* === CUSTOMIZE INPUTS === */}
+        <div style={{ fontSize: 9, color: C.accentBlue, letterSpacing: 2.5, fontWeight: 700, marginTop: 24, marginBottom: 10 }}>CUSTOMIZE FOR YOUR CENTER</div>
+
+        {/* Patient Input */}
+        <div style={{
+          borderRadius: 14, padding: "16px 18px", marginBottom: 12,
+          background: C.cardBg, border: `2px solid ${C.accentBlue}`,
+          boxShadow: "0 2px 12px rgba(0,101,172,0.1)"
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,101,172,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>🏥</div>
+            <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>How many HER2+ patients per year at this center?</div>
+          </div>
+          <input type="number" value={her2}
+            onChange={e => setHer2(Math.max(1, Number(e.target.value) || 1))}
+            style={{ width: "100%", background: "#F7F8FA", border: `2px solid ${C.cardBorder}`, borderRadius: 10, color: C.textPrimary, fontSize: 32, fontWeight: 900, outline: "none", textAlign: "center", padding: "8px 0", fontVariantNumeric: "tabular-nums", transition: "border-color 0.2s" }}
+            onFocus={e => e.target.style.borderColor = C.accentBlue}
+            onBlur={e => e.target.style.borderColor = C.cardBorder}
+          />
+          <div style={{ fontSize: 9, color: C.textDim, marginTop: 8, textAlign: "center" }}>
+            This center's volume is equivalent to <strong style={{ color: C.accentBlue }}>{(share * 100).toFixed(1)}%</strong> of the 3-center study cohort ({STUDY_HER2_PTS.toLocaleString()} pts)
+          </div>
+        </div>
+
+        {/* Adoption Slider */}
+        <div style={{
+          position: "relative", borderRadius: 14, padding: "16px 20px", marginBottom: 16,
+          background: C.cardBg, border: `2px solid ${C.accentTeal}`,
+          boxShadow: "0 2px 12px rgba(0,133,124,0.1)", overflow: "hidden"
+        }}>
+          <div style={{ position: "absolute", top: 0, left: 0, width: `${adopt}%`, height: "100%", background: "linear-gradient(90deg, rgba(0,133,124,0.03), rgba(0,133,124,0.08))", transition: "width 0.4s ease", pointerEvents: "none" }} />
+          <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,133,124,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>📈</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>SC Adoption Rate</div>
+              <div style={{ fontSize: 9, color: C.textMuted }}>What if we switch this %?</div>
+            </div>
+            <div>
+              <span style={{ fontSize: 38, fontWeight: 900, color: C.accentTeal, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{adopt}</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: C.accentTeal }}>%</span>
+            </div>
+          </div>
+          <input type="range" min={10} max={100} step={5} value={adopt}
+            onChange={e => setAdopt(Number(e.target.value))}
+            style={{ position: "relative", width: "100%", marginTop: 4, height: 6, accentColor: "#00857C" }}
+          />
+          <div style={{ position: "relative", display: "flex", justifyContent: "space-between", fontSize: 8, color: C.textDim, marginTop: 5 }}>
+            {[10, 25, 50, 75, 100].map(v => <span key={v} style={{ fontWeight: adopt === v ? 700 : 400, color: adopt === v ? C.accentTeal : C.textDim }}>{v}%</span>)}
           </div>
         </div>
       </div>
