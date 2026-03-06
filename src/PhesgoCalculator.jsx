@@ -82,9 +82,6 @@ export default function PhesgoCalculator() {
             onFocus={e => e.target.style.borderColor = C.accentBlue}
             onBlur={e => e.target.style.borderColor = C.cardBorder}
           />
-          <div style={{ fontSize: 8, color: C.textDim, marginTop: 6, textAlign: "center" }}>
-            <strong style={{ color: C.accentBlue }}>{(share * 100).toFixed(1)}%</strong> of the 3-center study cohort ({STUDY_HER2_PTS.toLocaleString()} pts)
-          </div>
         </div>
 
         {/* Adoption Slider */}
@@ -133,9 +130,6 @@ export default function PhesgoCalculator() {
               fontVariantNumeric: "tabular-nums"
             }}>{centerHrsYear.toLocaleString()}</div>
 
-            <div style={{ fontSize: 10, color: C.successGreen, marginTop: 4, fontWeight: 600 }}>
-              (<strong style={{color: C.textPrimary}}>{centerHrsMonth.toLocaleString()}</strong> hrs/month)
-            </div>
           </div>
         </div>
 
