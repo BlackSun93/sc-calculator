@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PhesgoCalculator from './PhesgoCalculator'
+import PhesgoEmail from './PhesgoEmail'
 import OmnichannelTracker from './OmnichannelTracker'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       }}>
         {[
           { id: "calculator", label: "Chair Capacity Calculator" },
+          { id: "emailer", label: "Complementary Emailer" },
           { id: "tracker", label: "Omnichannel Tracker" },
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
@@ -33,7 +35,9 @@ function App() {
       </div>
 
       {/* Content */}
-      {tab === "calculator" ? <PhesgoCalculator /> : <OmnichannelTracker />}
+      {tab === "calculator" && <PhesgoCalculator />}
+      {tab === "emailer" && <PhesgoEmail />}
+      {tab === "tracker" && <OmnichannelTracker />}
     </div>
   )
 }
