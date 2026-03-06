@@ -76,48 +76,52 @@ export default function PhesgoCalculator() {
 
       <div style={{ maxWidth: 580, margin: "0 auto", padding: "18px 16px 48px", position: "relative" }}>
 
-        {/* Study Banner */}
+        {/* === INPUTS AT TOP === */}
+        {/* Patient Input */}
         <div style={{
-          borderRadius: 12, padding: "11px 16px", marginBottom: 16,
-          background: "linear-gradient(135deg, rgba(196,136,0,0.06), rgba(196,136,0,0.02))",
-          border: `1px solid rgba(196,136,0,0.2)`, display: "flex", gap: 12, alignItems: "center"
+          borderRadius: 14, padding: "16px 18px", marginBottom: 12,
+          background: C.cardBg, border: `2px solid ${C.accentBlue}`,
+          boxShadow: "0 2px 12px rgba(0,101,172,0.1)"
         }}>
-          <div style={{ fontSize: 20, lineHeight: 1 }}>📄</div>
-          <div>
-            <div style={{ fontSize: 9, color: C.amberGold, fontWeight: 700, letterSpacing: 1 }}>POWERED BY PUBLISHED EGYPTIAN EVIDENCE</div>
-            <div style={{ fontSize: 8, color: C.textMuted, marginTop: 2, lineHeight: 1.5 }}>
-              Shash E et al. <em>Ann Oncol.</em> 2025;36(S2):2321P — n=1,965 patients
-              <br/>NCI-BCCC Cairo | Harmel Cancer Center | Sohag Cancer Center
-              <br/><strong>Slide Finding:</strong> 100% SC adoption frees 7,141 hrs & 1,888 visits/mo.
-            </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,101,172,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>🏥</div>
+            <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>How many HER2+ patients per year at this center?</div>
+          </div>
+          <input type="number" value={her2}
+            onChange={e => setHer2(Math.max(1, Number(e.target.value) || 1))}
+            style={{ width: "100%", background: "#F7F8FA", border: `2px solid ${C.cardBorder}`, borderRadius: 10, color: C.textPrimary, fontSize: 32, fontWeight: 900, outline: "none", textAlign: "center", padding: "8px 0", fontVariantNumeric: "tabular-nums", transition: "border-color 0.2s" }}
+            onFocus={e => e.target.style.borderColor = C.accentBlue}
+            onBlur={e => e.target.style.borderColor = C.cardBorder}
+          />
+          <div style={{ fontSize: 9, color: C.textDim, marginTop: 8, textAlign: "center" }}>
+            This center's volume is equivalent to <strong style={{ color: C.accentBlue }}>{(share * 100).toFixed(1)}%</strong> of the 3-center study cohort ({STUDY_HER2_PTS.toLocaleString()} pts)
           </div>
         </div>
 
-        {/* Measured Times */}
-        <div style={{ borderRadius: 12, padding: "14px 16px", marginBottom: 16, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-          <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2, fontWeight: 700, marginBottom: 12 }}>MEASURED PER-CYCLE TIMES (from the study)</div>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 0 }}>
-            <div style={{ padding: "6px 8px", borderBottom: `1px solid ${C.cardBorder}` }}></div>
-            <div style={{ padding: "6px 8px", fontSize: 8, color: C.alertCoral, fontWeight: 700, textAlign: "center", borderBottom: `1px solid ${C.cardBorder}` }}>IV COMBO (P+H)</div>
-            <div style={{ padding: "6px 8px", fontSize: 8, color: C.successGreen, fontWeight: 700, textAlign: "center", borderBottom: `1px solid ${C.cardBorder}` }}>SC (PHESGO)</div>
-            {[
-              { label: "Chair time", iv: IV_COMBO_CHAIR, sc: SC_CHAIR },
-              { label: "Nurse time", iv: IV_NURSE, sc: SC_NURSE },
-              { label: "Pharmacist time", iv: IV_PHARMA, sc: SC_PHARMA },
-            ].map((row, i) => (
-              [
-                <div key={`l${i}`} style={{ padding: "7px 8px", fontSize: 10, color: C.textSecondary, background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.label}</div>,
-                <div key={`iv${i}`} style={{ padding: "7px 8px", fontSize: 17, fontWeight: 900, color: C.alertCoral, textAlign: "center", background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.iv}<span style={{ fontSize: 10, fontWeight: 600 }}> min</span></div>,
-                <div key={`sc${i}`} style={{ padding: "7px 8px", fontSize: 17, fontWeight: 900, color: C.successGreen, textAlign: "center", background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.sc}<span style={{ fontSize: 10, fontWeight: 600 }}> min</span></div>,
-              ]
-            )).flat()}
+        {/* Adoption Slider */}
+        <div style={{
+          position: "relative", borderRadius: 14, padding: "16px 20px", marginBottom: 22,
+          background: C.cardBg, border: `2px solid ${C.accentTeal}`,
+          boxShadow: "0 2px 12px rgba(0,133,124,0.1)", overflow: "hidden"
+        }}>
+          <div style={{ position: "absolute", top: 0, left: 0, width: `${adopt}%`, height: "100%", background: "linear-gradient(90deg, rgba(0,133,124,0.03), rgba(0,133,124,0.08))", transition: "width 0.4s ease", pointerEvents: "none" }} />
+          <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,133,124,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>📈</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>SC Adoption Rate</div>
+              <div style={{ fontSize: 9, color: C.textMuted }}>What if we switch this %?</div>
+            </div>
+            <div>
+              <span style={{ fontSize: 38, fontWeight: 900, color: C.accentTeal, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{adopt}</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: C.accentTeal }}>%</span>
+            </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 10 }}>
-            {[{ l: "Chair", p: 90 }, { l: "Nurse", p: 90 }, { l: "Pharmacist", p: 94 }].map(r => (
-              <div key={r.l} style={{ padding: "3px 10px", borderRadius: 20, background: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)", fontSize: 9, color: C.successGreen, fontWeight: 700 }}>
-                {r.l} ↓{r.p}%
-              </div>
-            ))}
+          <input type="range" min={10} max={100} step={5} value={adopt}
+            onChange={e => setAdopt(Number(e.target.value))}
+            style={{ position: "relative", width: "100%", marginTop: 4, height: 6, accentColor: "#00857C" }}
+          />
+          <div style={{ position: "relative", display: "flex", justifyContent: "space-between", fontSize: 8, color: C.textDim, marginTop: 5 }}>
+            {[10, 25, 50, 75, 100].map(v => <span key={v} style={{ fontWeight: adopt === v ? 700 : 400, color: adopt === v ? C.accentTeal : C.textDim }}>{v}%</span>)}
           </div>
         </div>
 
@@ -177,6 +181,16 @@ export default function PhesgoCalculator() {
           </Card>
         </div>
 
+        {/* ISL Script */}
+        <div style={{ borderRadius: 14, padding: "14px 20px", marginBottom: 14, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+          <div style={{ fontSize: 8, color: C.amberGold, letterSpacing: 2.5, fontWeight: 700, marginBottom: 8 }}>ISL TALKING POINT</div>
+          <div style={{ fontSize: 12, color: C.textSecondary, lineHeight: 1.8, fontStyle: "italic" }}>
+            "Doctor, a 2025 Annals of Oncology study led by NCI Cairo tracked 1,965 patients. They found IV P+H takes 235 minutes of chair time versus just 23 minutes with SC. At full 100% adoption, their model projected <strong style={{ color: C.textPrimary, fontStyle: "normal" }}>7,141 chair-hours freed per month</strong> across the three study centers.
+            <br/><br/>
+            If we apply that same {adopt}% adoption rate to your center's volume of {her2} patients, that means roughly <strong style={{ color: C.successGreen, fontStyle: "normal" }}>{centerHrsMonth.toLocaleString()} chair-hours freed every single month</strong>, enabling <strong style={{ color: "#6B9900", fontStyle: "normal" }}>+{centerVisYear.toLocaleString()} additional treatment visits</strong> per year."
+          </div>
+        </div>
+
         {/* Study Table */}
         <div style={{ borderRadius: 14, padding: "14px 16px", marginBottom: 14, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
           <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2, fontWeight: 700, marginBottom: 10 }}>PUBLISHED STUDY PROJECTIONS (Monthly, 3 Centers Combined)</div>
@@ -206,13 +220,49 @@ export default function PhesgoCalculator() {
           </div>
         </div>
 
-        {/* ISL Script */}
-        <div style={{ borderRadius: 14, padding: "14px 20px", marginBottom: 14, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-          <div style={{ fontSize: 8, color: C.amberGold, letterSpacing: 2.5, fontWeight: 700, marginBottom: 8 }}>ISL TALKING POINT</div>
-          <div style={{ fontSize: 12, color: C.textSecondary, lineHeight: 1.8, fontStyle: "italic" }}>
-            "Doctor, a 2025 Annals of Oncology study led by NCI Cairo tracked 1,965 patients. They found IV P+H takes 235 minutes of chair time versus just 23 minutes with SC. At full 100% adoption, their model projected <strong style={{ color: C.textPrimary, fontStyle: "normal" }}>7,141 chair-hours freed per month</strong> across the three study centers.
-            <br/><br/>
-            If we apply that same {adopt}% adoption rate to your center's volume of {her2} patients, that means roughly <strong style={{ color: C.successGreen, fontStyle: "normal" }}>{centerHrsMonth.toLocaleString()} chair-hours freed every single month</strong>, enabling <strong style={{ color: "#6B9900", fontStyle: "normal" }}>+{centerVisYear.toLocaleString()} additional treatment visits</strong> per year."
+        {/* === STUDY DATA (bottom) === */}
+        {/* Measured Times */}
+        <div style={{ borderRadius: 12, padding: "14px 16px", marginBottom: 14, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+          <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2, fontWeight: 700, marginBottom: 12 }}>MEASURED PER-CYCLE TIMES (from the study)</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 0 }}>
+            <div style={{ padding: "6px 8px", borderBottom: `1px solid ${C.cardBorder}` }}></div>
+            <div style={{ padding: "6px 8px", fontSize: 8, color: C.alertCoral, fontWeight: 700, textAlign: "center", borderBottom: `1px solid ${C.cardBorder}` }}>IV COMBO (P+H)</div>
+            <div style={{ padding: "6px 8px", fontSize: 8, color: C.successGreen, fontWeight: 700, textAlign: "center", borderBottom: `1px solid ${C.cardBorder}` }}>SC (PHESGO)</div>
+            {[
+              { label: "Chair time", iv: IV_COMBO_CHAIR, sc: SC_CHAIR },
+              { label: "Nurse time", iv: IV_NURSE, sc: SC_NURSE },
+              { label: "Pharmacist time", iv: IV_PHARMA, sc: SC_PHARMA },
+            ].map((row, i) => (
+              [
+                <div key={`l${i}`} style={{ padding: "7px 8px", fontSize: 10, color: C.textSecondary, background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.label}</div>,
+                <div key={`iv${i}`} style={{ padding: "7px 8px", fontSize: 17, fontWeight: 900, color: C.alertCoral, textAlign: "center", background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.iv}<span style={{ fontSize: 10, fontWeight: 600 }}> min</span></div>,
+                <div key={`sc${i}`} style={{ padding: "7px 8px", fontSize: 17, fontWeight: 900, color: C.successGreen, textAlign: "center", background: i % 2 ? "#F7F8FA" : "transparent" }}>{row.sc}<span style={{ fontSize: 10, fontWeight: 600 }}> min</span></div>,
+              ]
+            )).flat()}
+          </div>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 10 }}>
+            {[{ l: "Chair", p: 90 }, { l: "Nurse", p: 90 }, { l: "Pharmacist", p: 94 }].map(r => (
+              <div key={r.l} style={{ padding: "3px 10px", borderRadius: 20, background: "rgba(22,163,74,0.08)", border: "1px solid rgba(22,163,74,0.2)", fontSize: 9, color: C.successGreen, fontWeight: 700 }}>
+                {r.l} ↓{r.p}%
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Study Banner */}
+        <div style={{
+          borderRadius: 12, padding: "11px 16px", marginBottom: 14,
+          background: "linear-gradient(135deg, rgba(196,136,0,0.06), rgba(196,136,0,0.02))",
+          border: `1px solid rgba(196,136,0,0.2)`, display: "flex", gap: 12, alignItems: "center"
+        }}>
+          <div style={{ fontSize: 20, lineHeight: 1 }}>📄</div>
+          <div>
+            <div style={{ fontSize: 9, color: C.amberGold, fontWeight: 700, letterSpacing: 1 }}>POWERED BY PUBLISHED EGYPTIAN EVIDENCE</div>
+            <div style={{ fontSize: 8, color: C.textMuted, marginTop: 2, lineHeight: 1.5 }}>
+              Shash E et al. <em>Ann Oncol.</em> 2025;36(S2):2321P — n=1,965 patients
+              <br/>NCI-BCCC Cairo | Harmel Cancer Center | Sohag Cancer Center
+              <br/><strong>Slide Finding:</strong> 100% SC adoption frees 7,141 hrs & 1,888 visits/mo.
+            </div>
           </div>
         </div>
 
@@ -222,57 +272,6 @@ export default function PhesgoCalculator() {
           <div style={{ fontSize: 7.5, color: C.textMuted, lineHeight: 2 }}>
             <strong style={{ color: C.textSecondary }}>[1]</strong> Shash E, Khorshid OMR, Amin HM, et al. <em>Ann Oncol.</em> 2025;36(S2):2321P.
             <br/><strong style={{ color: C.textSecondary }}>Method:</strong> Chair-hours & visits are scaled linearly from the study's stated 100% maximums (7,141 hrs / 1,888 visits per month), then proportioned by the user's input patient volume vs the study's 1,965 patient cohort size.
-          </div>
-        </div>
-
-        {/* === CUSTOMIZE INPUTS === */}
-        <div style={{ fontSize: 9, color: C.accentBlue, letterSpacing: 2.5, fontWeight: 700, marginTop: 24, marginBottom: 10 }}>CUSTOMIZE FOR YOUR CENTER</div>
-
-        {/* Patient Input */}
-        <div style={{
-          borderRadius: 14, padding: "16px 18px", marginBottom: 12,
-          background: C.cardBg, border: `2px solid ${C.accentBlue}`,
-          boxShadow: "0 2px 12px rgba(0,101,172,0.1)"
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,101,172,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>🏥</div>
-            <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>How many HER2+ patients per year at this center?</div>
-          </div>
-          <input type="number" value={her2}
-            onChange={e => setHer2(Math.max(1, Number(e.target.value) || 1))}
-            style={{ width: "100%", background: "#F7F8FA", border: `2px solid ${C.cardBorder}`, borderRadius: 10, color: C.textPrimary, fontSize: 32, fontWeight: 900, outline: "none", textAlign: "center", padding: "8px 0", fontVariantNumeric: "tabular-nums", transition: "border-color 0.2s" }}
-            onFocus={e => e.target.style.borderColor = C.accentBlue}
-            onBlur={e => e.target.style.borderColor = C.cardBorder}
-          />
-          <div style={{ fontSize: 9, color: C.textDim, marginTop: 8, textAlign: "center" }}>
-            This center's volume is equivalent to <strong style={{ color: C.accentBlue }}>{(share * 100).toFixed(1)}%</strong> of the 3-center study cohort ({STUDY_HER2_PTS.toLocaleString()} pts)
-          </div>
-        </div>
-
-        {/* Adoption Slider */}
-        <div style={{
-          position: "relative", borderRadius: 14, padding: "16px 20px", marginBottom: 16,
-          background: C.cardBg, border: `2px solid ${C.accentTeal}`,
-          boxShadow: "0 2px 12px rgba(0,133,124,0.1)", overflow: "hidden"
-        }}>
-          <div style={{ position: "absolute", top: 0, left: 0, width: `${adopt}%`, height: "100%", background: "linear-gradient(90deg, rgba(0,133,124,0.03), rgba(0,133,124,0.08))", transition: "width 0.4s ease", pointerEvents: "none" }} />
-          <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(0,133,124,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>📈</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, color: C.textPrimary, fontWeight: 700 }}>SC Adoption Rate</div>
-              <div style={{ fontSize: 9, color: C.textMuted }}>What if we switch this %?</div>
-            </div>
-            <div>
-              <span style={{ fontSize: 38, fontWeight: 900, color: C.accentTeal, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{adopt}</span>
-              <span style={{ fontSize: 15, fontWeight: 700, color: C.accentTeal }}>%</span>
-            </div>
-          </div>
-          <input type="range" min={10} max={100} step={5} value={adopt}
-            onChange={e => setAdopt(Number(e.target.value))}
-            style={{ position: "relative", width: "100%", marginTop: 4, height: 6, accentColor: "#00857C" }}
-          />
-          <div style={{ position: "relative", display: "flex", justifyContent: "space-between", fontSize: 8, color: C.textDim, marginTop: 5 }}>
-            {[10, 25, 50, 75, 100].map(v => <span key={v} style={{ fontWeight: adopt === v ? 700 : 400, color: adopt === v ? C.accentTeal : C.textDim }}>{v}%</span>)}
           </div>
         </div>
       </div>
