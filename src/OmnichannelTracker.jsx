@@ -1,5 +1,22 @@
 import { useState } from "react";
 
+// Roche Light Theme Colors
+const C = {
+  pageBg: "#F7F8FA",
+  cardBg: "#FFFFFF",
+  cardBorder: "#E2E6EC",
+  textPrimary: "#1B2A3D",
+  textSecondary: "#4A5A6A",
+  textMuted: "#6B7B8B",
+  textDim: "#8A95A3",
+  accentBlue: "#0065AC",
+  accentTeal: "#00857C",
+  successGreen: "#16A34A",
+  alertCoral: "#E05252",
+  amberGold: "#C48800",
+  purple: "#7C3AED",
+};
+
 const CENTERS = [
   { name: "NCI Cairo", patients: 320, region: "Cairo" },
   { name: "Ain Shams Univ.", patients: 280, region: "Cairo" },
@@ -23,7 +40,6 @@ const TOUCHPOINTS = [
   { id: "loop", short: "Feedback Loop", icon: "🔄", desc: "Monthly center spotlight active" },
 ];
 
-// Simulated progress data (in real tool, this would be from CRM/Veeva)
 const INITIAL_DATA = {
   "NCI Cairo":        [true, true, true, true, true, true, false],
   "Ain Shams Univ.":  [true, true, true, true, false, false, false],
@@ -39,11 +55,11 @@ const INITIAL_DATA = {
 
 function getScore(steps) { return steps.filter(Boolean).length; }
 function getPhase(score) {
-  if (score === 0) return { label: "NOT STARTED", color: "#4a5568", bg: "rgba(74,85,104,0.15)" };
-  if (score <= 2) return { label: "AWARENESS", color: "#E8A317", bg: "rgba(232,163,23,0.12)" };
-  if (score <= 4) return { label: "ACTIVATION", color: "#0085CA", bg: "rgba(0,133,202,0.12)" };
-  if (score <= 6) return { label: "ADOPTION", color: "#00857C", bg: "rgba(0,133,124,0.12)" };
-  return { label: "CHAMPION", color: "#4ade80", bg: "rgba(74,222,128,0.12)" };
+  if (score === 0) return { label: "NOT STARTED", color: "#6B7B8B", bg: "rgba(107,123,139,0.1)" };
+  if (score <= 2) return { label: "AWARENESS", color: "#C48800", bg: "rgba(196,136,0,0.1)" };
+  if (score <= 4) return { label: "ACTIVATION", color: "#0065AC", bg: "rgba(0,101,172,0.1)" };
+  if (score <= 6) return { label: "ADOPTION", color: "#00857C", bg: "rgba(0,133,124,0.1)" };
+  return { label: "CHAMPION", color: "#16A34A", bg: "rgba(22,163,74,0.1)" };
 }
 
 export default function OmnichannelTracker() {
@@ -61,32 +77,31 @@ export default function OmnichannelTracker() {
     });
   };
 
-  // Summary stats
   const totalCenters = CENTERS.length;
   const avgScore = (CENTERS.reduce((sum, c) => sum + getScore(data[c.name]), 0) / totalCenters).toFixed(1);
   const centersWithSwitch = CENTERS.filter(c => data[c.name][5]).length;
   const centersChampion = CENTERS.filter(c => getScore(data[c.name]) === 7).length;
-  const touchpointCompletion = TOUCHPOINTS.map((_, i) => 
+  const touchpointCompletion = TOUCHPOINTS.map((_, i) =>
     Math.round(CENTERS.filter(c => data[c.name][i]).length / totalCenters * 100)
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#060e1a", fontFamily: "'Segoe UI', system-ui, sans-serif", color: "#fff" }}>
+    <div style={{ minHeight: "100vh", background: C.pageBg, fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.textPrimary }}>
       {/* Header */}
-      <div style={{ background: "linear-gradient(135deg, #0065AC, #003d6b, #002a4a)", padding: "14px 20px", borderBottom: "3px solid #00b8d4", position: "relative" }}>
+      <div style={{ background: "linear-gradient(135deg, #0065AC, #004A82)", padding: "14px 20px", borderBottom: `3px solid ${C.accentBlue}`, position: "relative" }}>
         <div style={{ position: "absolute", inset: 0, opacity: 0.06, backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.1) 60px, rgba(255,255,255,0.1) 61px)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative" }}>
           <div>
-            <div style={{ fontSize: 9, color: "#70c8f0", letterSpacing: 3, fontWeight: 700 }}>PHESGO POD DASHBOARD</div>
-            <div style={{ fontSize: 18, fontWeight: 800, marginTop: 2 }}>Omnichannel Journey Tracker</div>
+            <div style={{ fontSize: 9, color: "#a0d4f0", letterSpacing: 3, fontWeight: 700 }}>PHESGO POD DASHBOARD</div>
+            <div style={{ fontSize: 18, fontWeight: 800, marginTop: 2, color: "#fff" }}>Omnichannel Journey Tracker</div>
           </div>
           <div style={{ display: "flex", gap: 6 }}>
             {["grid", "funnel"].map(v => (
               <button key={v} onClick={() => setView(v)} style={{
                 padding: "5px 12px", borderRadius: 6, border: "1px solid",
-                borderColor: view === v ? "#00b8d4" : "rgba(255,255,255,0.1)",
-                background: view === v ? "rgba(0,184,212,0.15)" : "transparent",
-                color: view === v ? "#00e8d8" : "#6a7a8a", fontSize: 9, fontWeight: 700,
+                borderColor: view === v ? "#fff" : "rgba(255,255,255,0.2)",
+                background: view === v ? "rgba(255,255,255,0.15)" : "transparent",
+                color: view === v ? "#fff" : "rgba(255,255,255,0.7)", fontSize: 9, fontWeight: 700,
                 cursor: "pointer", letterSpacing: 1, textTransform: "uppercase"
               }}>{v}</button>
             ))}
@@ -98,26 +113,26 @@ export default function OmnichannelTracker() {
 
         {/* KPI Summary Cards */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 10, marginBottom: 18 }}>
-          <KPI label="AVG READINESS" value={`${avgScore}/7`} sub="across 10 centers" color="#00e8d8" />
-          <KPI label="FIRST SWITCH DONE" value={`${centersWithSwitch}/${totalCenters}`} sub="centers with patients on SC" color="#4ade80" />
-          <KPI label="CHAMPION STATUS" value={`${centersChampion}`} sub="centers fully activated" color="#d4f060" />
-          <KPI label="BIGGEST GAP" value={TOUCHPOINTS[touchpointCompletion.indexOf(Math.min(...touchpointCompletion))].short} sub={`${Math.min(...touchpointCompletion)}% completion`} color="#ff8a7a" small />
+          <KPI label="AVG READINESS" value={`${avgScore}/7`} sub="across 10 centers" color={C.accentBlue} />
+          <KPI label="FIRST SWITCH DONE" value={`${centersWithSwitch}/${totalCenters}`} sub="centers with patients on SC" color={C.successGreen} />
+          <KPI label="CHAMPION STATUS" value={`${centersChampion}`} sub="centers fully activated" color="#6B9900" />
+          <KPI label="BIGGEST GAP" value={TOUCHPOINTS[touchpointCompletion.indexOf(Math.min(...touchpointCompletion))].short} sub={`${Math.min(...touchpointCompletion)}% completion`} color={C.alertCoral} small />
         </div>
 
-        {/* Touchpoint Funnel (completion rates) */}
+        {/* Touchpoint Funnel */}
         {view === "funnel" && (
-          <div style={{ borderRadius: 14, padding: "16px 18px", marginBottom: 18, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-            <div style={{ fontSize: 8, color: "#6a7a8a", letterSpacing: 2, fontWeight: 700, marginBottom: 14 }}>TOUCHPOINT COMPLETION FUNNEL</div>
+          <div style={{ borderRadius: 14, padding: "16px 18px", marginBottom: 18, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2, fontWeight: 700, marginBottom: 14 }}>TOUCHPOINT COMPLETION FUNNEL</div>
             {TOUCHPOINTS.map((tp, i) => (
               <div key={tp.id} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                 <div style={{ fontSize: 14, width: 24, textAlign: "center" }}>{tp.icon}</div>
-                <div style={{ width: 100, fontSize: 10, color: "#8899aa" }}>{tp.short}</div>
-                <div style={{ flex: 1, height: 22, background: "rgba(255,255,255,0.04)", borderRadius: 6, overflow: "hidden", position: "relative" }}>
+                <div style={{ width: 100, fontSize: 10, color: C.textSecondary }}>{tp.short}</div>
+                <div style={{ flex: 1, height: 22, background: "#EEF0F4", borderRadius: 6, overflow: "hidden", position: "relative" }}>
                   <div style={{
                     width: `${touchpointCompletion[i]}%`, height: "100%",
-                    background: touchpointCompletion[i] >= 70 ? "linear-gradient(90deg, #22c55e, #4ade80)" :
+                    background: touchpointCompletion[i] >= 70 ? "linear-gradient(90deg, #16A34A, #22c55e)" :
                       touchpointCompletion[i] >= 40 ? "linear-gradient(90deg, #0065AC, #0085CA)" :
-                      "linear-gradient(90deg, #E8A317, #f0c050)",
+                      "linear-gradient(90deg, #C48800, #e0a820)",
                     borderRadius: 6, transition: "width 0.5s ease",
                     display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 8
                   }}>
@@ -126,15 +141,15 @@ export default function OmnichannelTracker() {
                     )}
                   </div>
                   {touchpointCompletion[i] < 15 && (
-                    <span style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", fontSize: 10, fontWeight: 700, color: "#667" }}>{touchpointCompletion[i]}%</span>
+                    <span style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", fontSize: 10, fontWeight: 700, color: C.textMuted }}>{touchpointCompletion[i]}%</span>
                   )}
                 </div>
-                <div style={{ width: 35, fontSize: 10, color: "#556677", textAlign: "right" }}>
+                <div style={{ width: 35, fontSize: 10, color: C.textSecondary, textAlign: "right" }}>
                   {CENTERS.filter(c => data[c.name][i]).length}/{totalCenters}
                 </div>
               </div>
             ))}
-            <div style={{ fontSize: 8, color: "#3a4a5a", marginTop: 10, textAlign: "center" }}>
+            <div style={{ fontSize: 8, color: C.textDim, marginTop: 10, textAlign: "center" }}>
               Drop-off points indicate where POD support is needed most
             </div>
           </div>
@@ -142,20 +157,20 @@ export default function OmnichannelTracker() {
 
         {/* Center Grid */}
         {view === "grid" && (
-          <div style={{ borderRadius: 14, padding: "16px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
-            <div style={{ fontSize: 8, color: "#6a7a8a", letterSpacing: 2, fontWeight: 700, marginBottom: 12 }}>
+          <div style={{ borderRadius: 14, padding: "16px", background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2, fontWeight: 700, marginBottom: 12 }}>
               CENTER READINESS MAP — Click any cell to update status
             </div>
 
             {/* Header row */}
             <div style={{ display: "grid", gridTemplateColumns: "140px repeat(7, 1fr) 80px", gap: 3, marginBottom: 6 }}>
-              <div style={{ fontSize: 8, color: "#556677", fontWeight: 700, padding: "4px 6px" }}>CENTER</div>
+              <div style={{ fontSize: 8, color: C.textSecondary, fontWeight: 700, padding: "4px 6px" }}>CENTER</div>
               {TOUCHPOINTS.map(tp => (
-                <div key={tp.id} style={{ fontSize: 7, color: "#556677", fontWeight: 700, textAlign: "center", padding: "4px 2px", lineHeight: 1.3 }}>
+                <div key={tp.id} style={{ fontSize: 7, color: C.textSecondary, fontWeight: 700, textAlign: "center", padding: "4px 2px", lineHeight: 1.3 }}>
                   {tp.icon}<br/>{tp.short}
                 </div>
               ))}
-              <div style={{ fontSize: 8, color: "#556677", fontWeight: 700, textAlign: "center", padding: "4px 2px" }}>STATUS</div>
+              <div style={{ fontSize: 8, color: C.textSecondary, fontWeight: 700, textAlign: "center", padding: "4px 2px" }}>STATUS</div>
             </div>
 
             {/* Center rows */}
@@ -172,14 +187,14 @@ export default function OmnichannelTracker() {
                     style={{
                       display: "grid", gridTemplateColumns: "140px repeat(7, 1fr) 80px", gap: 3,
                       padding: "6px 0", cursor: "pointer",
-                      background: isSelected ? "rgba(0,133,202,0.08)" : ci % 2 ? "rgba(255,255,255,0.015)" : "transparent",
+                      background: isSelected ? "rgba(0,101,172,0.06)" : ci % 2 ? "#F7F8FA" : "transparent",
                       borderRadius: 6, transition: "background 0.2s"
                     }}
                   >
                     {/* Center name */}
                     <div style={{ padding: "4px 6px" }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: "#c8d4e0" }}>{center.name}</div>
-                      <div style={{ fontSize: 8, color: "#556677" }}>{center.patients} pts/yr • {center.region}</div>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: C.textPrimary }}>{center.name}</div>
+                      <div style={{ fontSize: 8, color: C.textMuted }}>{center.patients} pts/yr • {center.region}</div>
                     </div>
 
                     {/* Touchpoint cells */}
@@ -189,8 +204,8 @@ export default function OmnichannelTracker() {
                         style={{
                           display: "flex", alignItems: "center", justifyContent: "center",
                           borderRadius: 4, cursor: "pointer", transition: "all 0.2s",
-                          background: done ? "rgba(74,222,128,0.15)" : "rgba(255,255,255,0.03)",
-                          border: done ? "1px solid rgba(74,222,128,0.3)" : "1px solid rgba(255,255,255,0.05)",
+                          background: done ? "rgba(22,163,74,0.08)" : "#F7F8FA",
+                          border: done ? "1px solid rgba(22,163,74,0.25)" : `1px solid ${C.cardBorder}`,
                         }}
                       >
                         <span style={{ fontSize: 14 }}>{done ? "✅" : "⬜"}</span>
@@ -211,9 +226,9 @@ export default function OmnichannelTracker() {
                   {isSelected && (
                     <div style={{
                       padding: "10px 16px", margin: "4px 0 8px", borderRadius: 8,
-                      background: "rgba(0,133,202,0.06)", border: "1px solid rgba(0,133,202,0.15)"
+                      background: "rgba(0,101,172,0.04)", border: `1px solid rgba(0,101,172,0.15)`
                     }}>
-                      <div style={{ fontSize: 9, color: "#0085CA", fontWeight: 700, marginBottom: 8 }}>
+                      <div style={{ fontSize: 9, color: C.accentBlue, fontWeight: 700, marginBottom: 8 }}>
                         {center.name} — READINESS DETAIL ({score}/7)
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
@@ -221,18 +236,18 @@ export default function OmnichannelTracker() {
                           <div key={tp.id} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 10 }}>
                             <span>{steps[i] ? "✅" : "⬜"}</span>
                             <div>
-                              <span style={{ color: steps[i] ? "#4ade80" : "#667788" }}>{tp.short}</span>
-                              <div style={{ fontSize: 8, color: "#445566" }}>{tp.desc}</div>
+                              <span style={{ color: steps[i] ? C.successGreen : C.textMuted }}>{tp.short}</span>
+                              <div style={{ fontSize: 8, color: C.textDim }}>{tp.desc}</div>
                             </div>
                           </div>
                         ))}
                       </div>
                       {score < 7 && (
-                        <div style={{ marginTop: 8, padding: "6px 10px", borderRadius: 6, background: "rgba(232,163,23,0.08)", border: "1px solid rgba(232,163,23,0.15)" }}>
-                          <div style={{ fontSize: 9, color: "#E8A317", fontWeight: 700 }}>
+                        <div style={{ marginTop: 8, padding: "6px 10px", borderRadius: 6, background: "rgba(196,136,0,0.06)", border: "1px solid rgba(196,136,0,0.15)" }}>
+                          <div style={{ fontSize: 9, color: C.amberGold, fontWeight: 700 }}>
                             NEXT ACTION: {TOUCHPOINTS[steps.indexOf(false)]?.short || "All complete"}
                           </div>
-                          <div style={{ fontSize: 8, color: "#887755" }}>
+                          <div style={{ fontSize: 8, color: C.textMuted }}>
                             {TOUCHPOINTS[steps.indexOf(false)]?.desc || "Move to champion program"}
                           </div>
                         </div>
@@ -248,20 +263,21 @@ export default function OmnichannelTracker() {
         {/* POD Action Summary */}
         <div style={{
           borderRadius: 14, padding: "14px 18px", marginTop: 16,
-          background: "linear-gradient(135deg, rgba(0,101,172,0.06), rgba(0,133,124,0.06))",
-          borderLeft: "4px solid #0085CA"
+          background: "rgba(0,101,172,0.03)",
+          border: `1px solid ${C.cardBorder}`,
+          borderLeft: `4px solid ${C.accentBlue}`
         }}>
-          <div style={{ fontSize: 9, color: "#0085CA", fontWeight: 700, letterSpacing: 1.5, marginBottom: 6 }}>POD WEEKLY PRIORITIES</div>
-          <div style={{ fontSize: 11, color: "#b0c0d0", lineHeight: 1.8 }}>
-            {centersWithSwitch < 5 && <div>• <strong style={{ color: "#E8A317" }}>Focus:</strong> {5 - centersWithSwitch} more centers need first patient switch — ISL to prioritize centers in ACTIVATION phase</div>}
-            {touchpointCompletion[3] < 60 && <div>• <strong style={{ color: "#60b8f0" }}>Nurse training gap:</strong> Only {touchpointCompletion[3]}% of centers have trained nurses — schedule workshops this week</div>}
-            {touchpointCompletion[1] < 80 && <div>• <strong style={{ color: "#c090f0" }}>Digital follow-up:</strong> {10 - CENTERS.filter(c => data[c.name][1]).length} centers missing WhatsApp data drop — Digital Enabler to send</div>}
-            {centersChampion > 0 && <div>• <strong style={{ color: "#4ade80" }}>Champion leverage:</strong> {centersChampion} center(s) at champion status — use for peer case studies</div>}
+          <div style={{ fontSize: 9, color: C.accentBlue, fontWeight: 700, letterSpacing: 1.5, marginBottom: 6 }}>POD WEEKLY PRIORITIES</div>
+          <div style={{ fontSize: 11, color: C.textSecondary, lineHeight: 1.8 }}>
+            {centersWithSwitch < 5 && <div>• <strong style={{ color: C.amberGold }}>Focus:</strong> {5 - centersWithSwitch} more centers need first patient switch — ISL to prioritize centers in ACTIVATION phase</div>}
+            {touchpointCompletion[3] < 60 && <div>• <strong style={{ color: C.accentBlue }}>Nurse training gap:</strong> Only {touchpointCompletion[3]}% of centers have trained nurses — schedule workshops this week</div>}
+            {touchpointCompletion[1] < 80 && <div>• <strong style={{ color: C.purple }}>Digital follow-up:</strong> {10 - CENTERS.filter(c => data[c.name][1]).length} centers missing WhatsApp data drop — Digital Enabler to send</div>}
+            {centersChampion > 0 && <div>• <strong style={{ color: C.successGreen }}>Champion leverage:</strong> {centersChampion} center(s) at champion status — use for peer case studies</div>}
           </div>
         </div>
 
         {/* Footer */}
-        <div style={{ textAlign: "center", marginTop: 20, fontSize: 8, color: "#2a3a4a", lineHeight: 1.8 }}>
+        <div style={{ textAlign: "center", marginTop: 20, fontSize: 8, color: C.textDim, lineHeight: 1.8 }}>
           MVP v1.0 — Internal POD tool. Data shown is illustrative for demonstration purposes.
           <br/>In production, this would connect to Veeva CRM for real-time ISL activity tracking.
         </div>
@@ -280,12 +296,13 @@ function KPI({ label, value, sub, color, small }) {
   return (
     <div style={{
       borderRadius: 12, padding: "14px 12px", textAlign: "center",
-      background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
-      borderTop: `3px solid ${color}`
+      background: C.cardBg, border: `1px solid ${C.cardBorder}`,
+      borderTop: `3px solid ${color}`,
+      boxShadow: "0 1px 3px rgba(0,0,0,0.06)"
     }}>
-      <div style={{ fontSize: 8, color: "#6a7a8a", letterSpacing: 1.5, fontWeight: 700 }}>{label}</div>
+      <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 1.5, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: small ? 16 : 26, fontWeight: 900, color, marginTop: 4, fontVariantNumeric: "tabular-nums", lineHeight: 1.1 }}>{value}</div>
-      <div style={{ fontSize: 8, color: "#445566", marginTop: 3 }}>{sub}</div>
+      <div style={{ fontSize: 8, color: C.textDim, marginTop: 3 }}>{sub}</div>
     </div>
   );
 }
