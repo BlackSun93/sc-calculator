@@ -17,9 +17,7 @@ const C = {
   purple: "#7C3AED",
 };
 
-export default function PhesgoCalculator() {
-  const [her2, setHer2] = useState(1965);
-  const [adopt, setAdopt] = useState(100);
+export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
 
   const STUDY_HER2_PTS = 1965;
   const STUDY_HRS_MO_100 = 7141;

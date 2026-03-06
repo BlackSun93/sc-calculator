@@ -1,22 +1,21 @@
 import { useState } from "react";
 
-export default function PhesgoEmail() {
+export default function PhesgoEmail({ her2, adopt }) {
   const [centerName, setCenterName] = useState("National Cancer Institute — Cairo");
   const [doctorName, setDoctorName] = useState("Prof. Ahmed");
-  const [patients, setPatients] = useState(320);
-  const [adoption, setAdoption] = useState(50);
 
   // Study constants
   const IV_MIN = 235, SC_MIN = 23, IV_NURSE = 169, SC_NURSE = 17;
-  const NAT_HER2 = 6300, CY = 17;
-  const NAT_50_HRS = 1281, NAT_50_VIS = 427;
+  const STUDY_HER2_PTS = 1965, CY = 17;
+  const STUDY_HRS_MO_100 = 7141, STUDY_VIS_MO_100 = 1888;
 
-  // Calculations (same study-anchored logic)
-  const share = patients / NAT_HER2;
-  const ratio = adoption / 50;
-  const freedHrsYr = Math.round(NAT_50_HRS * 12 * share * ratio);
-  const extraVisYr = Math.round(NAT_50_VIS * 12 * share * ratio);
-  const onSC = Math.round(patients * adoption / 100);
+  // Calculations using shared her2 & adopt from calculator
+  const share = her2 / STUDY_HER2_PTS;
+  const studyHrsMonth = Math.round((adopt / 100) * STUDY_HRS_MO_100);
+  const studyVisMonth = Math.round((adopt / 100) * STUDY_VIS_MO_100);
+  const freedHrsYr = Math.round(studyHrsMonth * 12 * share);
+  const extraVisYr = Math.round(studyVisMonth * 12 * share);
+  const onSC = Math.round(her2 * adopt / 100);
   const nurseHrsSaved = Math.round(onSC * (IV_NURSE - SC_NURSE) * CY / 60);
 
   return (
@@ -24,17 +23,13 @@ export default function PhesgoEmail() {
 
       {/* Editor Controls */}
       <div style={{ maxWidth: 620, margin: "0 auto 16px", background: "#fff", borderRadius: 12, padding: "14px 18px", border: "1px solid #d0d8e0", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: "#0065AC", letterSpacing: 2, marginBottom: 10 }}>PERSONALIZATION FIELDS — Digital Enabler edits these per center</div>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#0065AC", letterSpacing: 2, marginBottom: 10 }}>PERSONALIZATION FIELDS</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           <Field label="Doctor Name" value={doctorName} onChange={setDoctorName} />
           <Field label="Center Name" value={centerName} onChange={setCenterName} />
-          <Field label="HER2+ Patients/yr" value={patients} onChange={v => setPatients(Number(v) || 1)} type="number" />
-          <div>
-            <div style={{ fontSize: 9, color: "#6a7a8a", marginBottom: 4 }}>Adoption Rate: {adoption}%</div>
-            <input type="range" min={10} max={100} step={10} value={adoption}
-              onChange={e => setAdoption(Number(e.target.value))}
-              style={{ width: "100%", accentColor: "#0065AC" }} />
-          </div>
+        </div>
+        <div style={{ marginTop: 10, padding: "8px 12px", borderRadius: 8, background: "#f0f6fc", border: "1px solid #d0e0f0", fontSize: 9, color: "#4A5A6A" }}>
+          Using calculator inputs: <strong style={{ color: "#0065AC" }}>{her2.toLocaleString()}</strong> patients, <strong style={{ color: "#00857C" }}>{adopt}%</strong> adoption
         </div>
       </div>
 
@@ -83,24 +78,20 @@ export default function PhesgoEmail() {
             </div>
           </div>
 
-          {/* YOUR CENTER'S PROJECTION */}
-          <div style={{ background: "#f5f8fb", borderRadius: 12, padding: "20px 22px", marginBottom: 22, border: "1px solid #e4eaf0" }}>
-            <div style={{ fontSize: 10, color: "#0065AC", fontWeight: 700, letterSpacing: 2, marginBottom: 14 }}>
+          {/* YOUR CENTER'S PROJECTION — HIGHLIGHTED */}
+          <div style={{ background: "#0065AC", borderRadius: 14, padding: "22px 22px", marginBottom: 22 }}>
+            <div style={{ fontSize: 10, color: "#80c0f0", fontWeight: 700, letterSpacing: 2, marginBottom: 6 }}>
               PROJECTED IMPACT FOR {centerName.toUpperCase()}
             </div>
-            <div style={{ fontSize: 11, color: "#5a6a7a", marginBottom: 14 }}>
-              At <strong style={{ color: "#0065AC" }}>{adoption}% SC adoption</strong> across your <strong>{patients}</strong> HER2+ patients per year:
+            <div style={{ fontSize: 11, color: "#c0ddf0", marginBottom: 16 }}>
+              At <strong style={{ color: "#fff" }}>{adopt}% SC adoption</strong> across your <strong style={{ color: "#fff" }}>{her2.toLocaleString()}</strong> HER2+ patients per year:
             </div>
 
             {/* 3 Metric Cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-              <MetricBox value={freedHrsYr.toLocaleString()} unit="hrs/year" label="Chair-hours freed" color="#0065AC" bg="#edf4fa" />
-              <MetricBox value={`+${extraVisYr}`} unit="visits/year" label="Additional treatment visits" color="#00857C" bg="#edf8f6" />
-              <MetricBox value={nurseHrsSaved.toLocaleString()} unit="hrs/year" label="Nurse hours recovered" color="#6366f1" bg="#f0effe" />
-            </div>
-
-            <div style={{ fontSize: 8, color: "#9aaab8", marginTop: 12, textAlign: "center" }}>
-              Projections based on published national model (Shash et al. 2025), proportioned by center volume
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+              <MetricBox value={freedHrsYr.toLocaleString()} unit="hrs/year" label="Chair-hours freed" />
+              <MetricBox value={`+${extraVisYr.toLocaleString()}`} unit="visits/year" label="Additional visits" />
+              <MetricBox value={nurseHrsSaved.toLocaleString()} unit="hrs/year" label="Nurse hours freed" />
             </div>
           </div>
 
@@ -191,18 +182,17 @@ export default function PhesgoEmail() {
 
       {/* MVP Note */}
       <div style={{ maxWidth: 620, margin: "16px auto 0", textAlign: "center", fontSize: 9, color: "#8a9aaa", lineHeight: 1.8 }}>
-        MVP — Personalized Email Template | Digital Enabler edits the fields above, sends via approved email system
-        <br/>In production: connected to Calculator output for auto-population of center data
+        MVP — Personalized Email Template | Data auto-synced from Calculator tab
       </div>
     </div>
   );
 }
 
-function Field({ label, value, onChange, type = "text" }) {
+function Field({ label, value, onChange }) {
   return (
     <div>
       <div style={{ fontSize: 9, color: "#6a7a8a", marginBottom: 3 }}>{label}</div>
-      <input type={type} value={value} onChange={e => onChange(e.target.value)}
+      <input type="text" value={value} onChange={e => onChange(e.target.value)}
         style={{
           width: "100%", padding: "6px 10px", borderRadius: 6,
           border: "1px solid #d0d8e0", fontSize: 12, color: "#1a2b3c",
@@ -215,12 +205,12 @@ function Field({ label, value, onChange, type = "text" }) {
   );
 }
 
-function MetricBox({ value, unit, label, color, bg }) {
+function MetricBox({ value, unit, label }) {
   return (
-    <div style={{ textAlign: "center", padding: "14px 8px", borderRadius: 10, background: bg, border: `1px solid ${color}18` }}>
-      <div style={{ fontSize: 22, fontWeight: 900, color, fontFamily: "Georgia, serif" }}>{value}</div>
-      <div style={{ fontSize: 8, color: `${color}99`, marginTop: 1 }}>{unit}</div>
-      <div style={{ fontSize: 8, color: "#7a8a9a", marginTop: 4 }}>{label}</div>
+    <div style={{ textAlign: "center", padding: "14px 8px", borderRadius: 10, background: "rgba(255,255,255,0.12)" }}>
+      <div style={{ fontSize: 24, fontWeight: 900, color: "#fff", fontFamily: "Georgia, serif" }}>{value}</div>
+      <div style={{ fontSize: 8, color: "#a0d0f0", marginTop: 1 }}>{unit}</div>
+      <div style={{ fontSize: 8, color: "#80b8e0", marginTop: 4 }}>{label}</div>
     </div>
   );
 }

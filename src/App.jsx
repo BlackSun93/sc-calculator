@@ -5,6 +5,8 @@ import OmnichannelTracker from './OmnichannelTracker'
 
 function App() {
   const [tab, setTab] = useState("calculator")
+  const [her2, setHer2] = useState(1965)
+  const [adopt, setAdopt] = useState(100)
 
   return (
     <div style={{ minHeight: "100vh", background: "#F7F8FA" }}>
@@ -35,8 +37,8 @@ function App() {
       </div>
 
       {/* Content */}
-      {tab === "calculator" && <PhesgoCalculator />}
-      {tab === "emailer" && <PhesgoEmail />}
+      {tab === "calculator" && <PhesgoCalculator her2={her2} setHer2={setHer2} adopt={adopt} setAdopt={setAdopt} />}
+      {tab === "emailer" && <PhesgoEmail her2={her2} adopt={adopt} />}
       {tab === "tracker" && <OmnichannelTracker />}
     </div>
   )
