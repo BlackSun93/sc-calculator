@@ -151,10 +151,10 @@ export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
 
         {/* References */}
         <div style={{ padding: "10px 12px", borderRadius: 10, background: "#F0F2F5", border: `1px solid ${C.cardBorder}` }}>
-          <div style={{ fontSize: 7, color: C.textDim, letterSpacing: 1.5, fontWeight: 700, marginBottom: 4 }}>REFERENCE</div>
-          <div style={{ fontSize: 7, color: C.textMuted, lineHeight: 1.8 }}>
-            Shash E et al. <em>Ann Oncol.</em> 2025;36(S2):2321P — n=1,965 pts across 3 Egyptian centers.
-            Projections scaled linearly from study's 100% maximums (7,141 hrs / 1,888 visits per month).
+          <div style={{ fontSize: 7, color: C.textDim, letterSpacing: 1.5, fontWeight: 700, marginBottom: 6 }}>REFERENCES & METHODOLOGY</div>
+          <div style={{ fontSize: 7.5, color: C.textMuted, lineHeight: 2 }}>
+            <strong style={{ color: C.textSecondary }}>[1]</strong> Shash E, Khorshid OMR, Amin HM, et al. <em>Ann Oncol.</em> 2025;36(S2):2321P.
+            <br/><strong style={{ color: C.textSecondary }}>Method:</strong> Chair-hours & visits are scaled linearly from the study's stated 100% maximums (7,141 hrs / 1,888 visits per month), then proportioned by the user's input patient volume vs the study's 1,965 patient cohort size.
           </div>
         </div>
       </div>
