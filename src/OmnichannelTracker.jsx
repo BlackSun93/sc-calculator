@@ -31,7 +31,7 @@ const CENTERS = [
 ];
 
 const TOUCHPOINTS = [
-  { id: "audit", short: "Capacity Audit", icon: "📊", desc: "ISL conducted chair capacity audit with HoD" },
+  { id: "audit", short: "Capacity Audit", icon: "📊", desc: "PJP conducted chair capacity audit with HoD" },
   { id: "data", short: "Data Drop", icon: "📱", desc: "Personalized WhatsApp follow-up sent" },
   { id: "peer", short: "Peer Circle", icon: "👥", desc: "Oncologist attended peer KOL session" },
   { id: "nurse", short: "Nurse Training", icon: "👩‍⚕️", desc: "At least 1 nurse SC-trained" },
@@ -269,7 +269,7 @@ export default function OmnichannelTracker() {
         }}>
           <div style={{ fontSize: 9, color: C.accentBlue, fontWeight: 700, letterSpacing: 1.5, marginBottom: 6 }}>POD WEEKLY PRIORITIES</div>
           <div style={{ fontSize: 11, color: C.textSecondary, lineHeight: 1.8 }}>
-            {centersWithSwitch < 5 && <div>• <strong style={{ color: C.amberGold }}>Focus:</strong> {5 - centersWithSwitch} more centers need first patient switch — ISL to prioritize centers in ACTIVATION phase</div>}
+            {centersWithSwitch < 5 && <div>• <strong style={{ color: C.amberGold }}>Focus:</strong> {5 - centersWithSwitch} more centers need first patient switch — PJP to prioritize centers in ACTIVATION phase</div>}
             {touchpointCompletion[3] < 60 && <div>• <strong style={{ color: C.accentBlue }}>Nurse training gap:</strong> Only {touchpointCompletion[3]}% of centers have trained nurses — schedule workshops this week</div>}
             {touchpointCompletion[1] < 80 && <div>• <strong style={{ color: C.purple }}>Digital follow-up:</strong> {10 - CENTERS.filter(c => data[c.name][1]).length} centers missing WhatsApp data drop — Digital Enabler to send</div>}
             {centersChampion > 0 && <div>• <strong style={{ color: C.successGreen }}>Champion leverage:</strong> {centersChampion} center(s) at champion status — use for peer case studies</div>}
@@ -279,7 +279,7 @@ export default function OmnichannelTracker() {
         {/* Footer */}
         <div style={{ textAlign: "center", marginTop: 20, fontSize: 8, color: C.textDim, lineHeight: 1.8 }}>
           MVP v1.0 — Internal POD tool. Data shown is illustrative for demonstration purposes.
-          <br/>In production, this would connect to Veeva CRM for real-time ISL activity tracking.
+          <br/>In production, this would connect to Veeva CRM for real-time PJP activity tracking.
         </div>
       </div>
 

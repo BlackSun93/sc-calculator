@@ -68,7 +68,7 @@ export default function PhesgoCalculator() {
             <div style={{ fontSize: 19, fontWeight: 800, marginTop: 2, color: "#fff" }}>Chair Capacity Calculator</div>
           </div>
           <div style={{ background: "rgba(0,0,0,0.15)", borderRadius: 8, padding: "5px 10px", border: "1px solid rgba(255,255,255,0.15)", textAlign: "right" }}>
-            <div style={{ fontSize: 7, color: "#a0d4f0", letterSpacing: 1.5 }}>MVP v2.0 — ISL Field Tool</div>
+            <div style={{ fontSize: 7, color: "#a0d4f0", letterSpacing: 1.5 }}>MVP v2.0 — PJP Field Tool</div>
             <div style={{ fontSize: 7, color: "#80b8d8" }}>Aligned to ESMO 2025 Data</div>
           </div>
         </div>
@@ -181,9 +181,9 @@ export default function PhesgoCalculator() {
           </Card>
         </div>
 
-        {/* ISL Script */}
+        {/* PJP Talking Point */}
         <div style={{ borderRadius: 14, padding: "14px 20px", marginBottom: 14, background: C.cardBg, border: `1px solid ${C.cardBorder}`, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-          <div style={{ fontSize: 8, color: C.amberGold, letterSpacing: 2.5, fontWeight: 700, marginBottom: 8 }}>ISL TALKING POINT</div>
+          <div style={{ fontSize: 8, color: C.amberGold, letterSpacing: 2.5, fontWeight: 700, marginBottom: 8 }}>PJP TALKING POINT</div>
           <div style={{ fontSize: 12, color: C.textSecondary, lineHeight: 1.8, fontStyle: "italic" }}>
             "Doctor, a 2025 Annals of Oncology study led by NCI Cairo tracked 1,965 patients. They found IV P+H takes 235 minutes of chair time versus just 23 minutes with SC. At full 100% adoption, their model projected <strong style={{ color: C.textPrimary, fontStyle: "normal" }}>7,141 chair-hours freed per month</strong> across the three study centers.
             <br/><br/>

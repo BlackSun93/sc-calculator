@@ -24,7 +24,7 @@ export default function PhesgoEmail() {
 
       {/* Editor Controls */}
       <div style={{ maxWidth: 620, margin: "0 auto 16px", background: "#fff", borderRadius: 12, padding: "14px 18px", border: "1px solid #d0d8e0", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: "#0065AC", letterSpacing: 2, marginBottom: 10 }}>PERSONALIZATION FIELDS — ISL edits these per center</div>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#0065AC", letterSpacing: 2, marginBottom: 10 }}>PERSONALIZATION FIELDS — Digital Enabler edits these per center</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           <Field label="Doctor Name" value={doctorName} onChange={setDoctorName} />
           <Field label="Center Name" value={centerName} onChange={setCenterName} />
@@ -167,11 +167,11 @@ export default function PhesgoEmail() {
             Best regards,
           </div>
 
-          {/* ISL Signature */}
+          {/* Digital Enabler Signature */}
           <div style={{ borderTop: "1px solid #e4eaf0", paddingTop: 14, marginBottom: 10 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#1a2b3c" }}>[ISL Name]</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#1a2b3c" }}>[Digital Enabler Name]</div>
             <div style={{ fontSize: 10, color: "#5a6a7a", marginTop: 2, lineHeight: 1.5 }}>
-              In-field Sales Lead — Breast Cancer POD
+              Digital Enabler — Breast Cancer POD
               <br/>Roche Egypt
               <br/>[Phone] | [Email]
             </div>
@@ -191,7 +191,7 @@ export default function PhesgoEmail() {
 
       {/* MVP Note */}
       <div style={{ maxWidth: 620, margin: "16px auto 0", textAlign: "center", fontSize: 9, color: "#8a9aaa", lineHeight: 1.8 }}>
-        MVP — Personalized Email Template | ISL edits the fields above, sends via approved email system
+        MVP — Personalized Email Template | Digital Enabler edits the fields above, sends via approved email system
         <br/>In production: connected to Calculator output for auto-population of center data
       </div>
     </div>
