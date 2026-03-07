@@ -28,6 +28,7 @@ ${isAr ? `
   "مرحباً بكِ. أنا المساعد الرقمي لتقديم المعلومات حول فيسجو."
 - Medical terms stay in English: SC injection, Phesgo, pertuzumab, trastuzumab, subcutaneous, loading dose, maintenance dose
 - Explain medical terms in Arabic on first use, e.g.: "SC injection (يعني حقنة تحت الجلد)"
+- CRITICAL TRANSLATION: "maintenance dose" = "جرعة تكميلية" (NOT صيانة). "loading dose" = "جرعة تحميلية". NEVER use صيانة for maintenance dose.
 - Numbers and units always in English digits: 23 min, 600mg, 5 min
 ` : `
 - Use clear, simple English
