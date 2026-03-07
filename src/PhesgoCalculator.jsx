@@ -18,6 +18,7 @@ const C = {
 };
 
 export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
+  const pts = Number(her2) || 0;
 
   const STUDY_HER2_PTS = 1965;
   const STUDY_HRS_MO_100 = 7141;
@@ -34,15 +35,17 @@ export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
   const studyHrsYear = studyHrsMonth * 12;
   const studyVisYear = studyVisMonth * 12;
 
-  const share = her2 / STUDY_HER2_PTS;
+  const share = pts / STUDY_HER2_PTS;
   const centerHrsMonth = Math.round(studyHrsMonth * share);
   const centerHrsYear = Math.round(studyHrsYear * share);
   const centerVisMonth = Math.round(studyVisMonth * share);
   const centerVisYear = Math.round(studyVisYear * share);
 
-  const onSC = Math.round(her2 * (adopt / 100));
+  const onSC = Math.round(pts * (adopt / 100));
   const nurseFreedHrs = Math.round(onSC * (IV_NURSE - SC_NURSE) * CYCLES_YR / 60);
   const pharmaFreedHrs = Math.round(onSC * (IV_PHARMA - SC_PHARMA) * CYCLES_YR / 60);
+
+  const hasInput = pts > 0;
 
   return (
     <div style={{ minHeight: "100vh", background: C.pageBg, fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.textPrimary, position: "relative", overflow: "hidden" }}>
@@ -72,11 +75,12 @@ export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(0,101,172,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>🏥</div>
-            <div style={{ fontSize: 10, color: C.textPrimary, fontWeight: 700 }}>HER2+ patients per year at this center</div>
+            <div style={{ fontSize: 11, color: C.accentBlue, fontWeight: 700 }}>Enter your center's HER2+ patients per year</div>
           </div>
           <input type="text" inputMode="numeric" pattern="[0-9]*" value={her2}
-            onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ''); setHer2(Number(v) || 1); }}
-            style={{ width: "100%", background: "#F7F8FA", border: `2px solid ${C.cardBorder}`, borderRadius: 10, color: C.textPrimary, fontSize: "clamp(22px, 6vw, 32px)", fontWeight: 900, outline: "none", textAlign: "center", padding: "6px 0", fontVariantNumeric: "tabular-nums", transition: "border-color 0.2s" }}
+            placeholder="e.g. 200"
+            onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ''); setHer2(v); }}
+            style={{ width: "100%", background: "#F7F8FA", border: `2px solid ${C.cardBorder}`, borderRadius: 10, color: C.textPrimary, fontSize: "clamp(22px, 6vw, 32px)", fontWeight: 900, outline: "none", textAlign: "center", padding: "8px 0", fontVariantNumeric: "tabular-nums", transition: "border-color 0.2s" }}
             onFocus={e => e.target.style.borderColor = C.accentBlue}
             onBlur={e => e.target.style.borderColor = C.cardBorder}
           />
@@ -109,6 +113,15 @@ export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
         </div>
 
         {/* === RESULTS === */}
+        {!hasInput && (
+          <div style={{ textAlign: "center", padding: "32px 16px", borderRadius: 14, background: C.cardBg, border: `1px dashed ${C.cardBorder}`, marginBottom: 14 }}>
+            <div style={{ fontSize: 28, marginBottom: 8 }}>👆</div>
+            <div style={{ fontSize: 13, color: C.textSecondary, fontWeight: 700 }}>Enter your patient count above</div>
+            <div style={{ fontSize: 10, color: C.textDim, marginTop: 4 }}>Results will calculate automatically</div>
+          </div>
+        )}
+
+        {hasInput && <>
         <div style={{ fontSize: 8, color: C.textMuted, letterSpacing: 2.5, fontWeight: 700, marginBottom: 8 }}>PROJECTED IMPACT</div>
 
         {/* Hero */}
@@ -148,6 +161,8 @@ export default function PhesgoCalculator({ her2, setHer2, adopt, setAdopt }) {
             <div style={{ fontSize: 7, color: C.textMuted, marginTop: 2 }}>freed</div>
           </Card>
         </div>
+
+        </>}
 
         {/* References */}
         <div style={{ padding: "10px 12px", borderRadius: 10, background: "#F0F2F5", border: `1px solid ${C.cardBorder}` }}>

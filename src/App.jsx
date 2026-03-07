@@ -5,7 +5,7 @@ import NurseNadia from './NurseNadia'
 
 function App() {
   const [tab, setTab] = useState("calculator")
-  const [her2, setHer2] = useState(1965)
+  const [her2, setHer2] = useState("")
   const [adopt, setAdopt] = useState(100)
 
   return (

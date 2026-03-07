@@ -10,12 +10,13 @@ export default function PhesgoEmail({ her2, adopt }) {
   const STUDY_HRS_MO_100 = 7141, STUDY_VIS_MO_100 = 1888;
 
   // Calculations using shared her2 & adopt from calculator
-  const share = her2 / STUDY_HER2_PTS;
+  const pts = Number(her2) || 0;
+  const share = pts / STUDY_HER2_PTS;
   const studyHrsMonth = Math.round((adopt / 100) * STUDY_HRS_MO_100);
   const studyVisMonth = Math.round((adopt / 100) * STUDY_VIS_MO_100);
   const freedHrsYr = Math.round(studyHrsMonth * 12 * share);
   const extraVisYr = Math.round(studyVisMonth * 12 * share);
-  const onSC = Math.round(her2 * adopt / 100);
+  const onSC = Math.round(pts * adopt / 100);
   const nurseHrsSaved = Math.round(onSC * (IV_NURSE - SC_NURSE) * CY / 60);
 
   return (
@@ -29,7 +30,7 @@ export default function PhesgoEmail({ her2, adopt }) {
           <Field label="Center Name" value={centerName} onChange={setCenterName} />
         </div>
         <div style={{ marginTop: 10, padding: "8px 12px", borderRadius: 8, background: "#f0f6fc", border: "1px solid #d0e0f0", fontSize: 9, color: "#4A5A6A" }}>
-          Using calculator inputs: <strong style={{ color: "#0065AC" }}>{her2.toLocaleString()}</strong> patients, <strong style={{ color: "#00857C" }}>{adopt}%</strong> adoption
+          Using calculator inputs: <strong style={{ color: "#0065AC" }}>{pts > 0 ? pts.toLocaleString() : "—"}</strong> patients, <strong style={{ color: "#00857C" }}>{adopt}%</strong> adoption
         </div>
       </div>
 
