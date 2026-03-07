@@ -122,10 +122,7 @@ const SAFETY_GUARDRAILS = {
           "Shash E et al. Ann Oncol. 2025 (Egyptian time-motion study)",
           "Phesgo SC Administration Guide for HCPs",
         ],
-        materials: [
-          { type: "article", label: "FeDeriCa Trial", url: "https://www.roche.com/stories/federica-trial" },
-          { type: "article", label: "PHranceSCa Study", url: "https://www.roche.com/stories/phrancesca-study" },
-        ],
+        materials: [],
       },
       {
         title: "Strict Knowledge Boundary",
@@ -197,98 +194,6 @@ const SAFETY_GUARDRAILS = {
       },
     ],
   },
-  ar: {
-    header: "حماية وسلامة الذكاء الاصطناعي",
-    subtitle: "كيف بنحمي ممرضة نادية من أي معلومات طبية غلط",
-    sections: [
-      {
-        title: "مصادر معتمدة فقط",
-        icon: "shield",
-        color: "#0D7C66",
-        bg: "#E8F5E9",
-        points: [
-          "كل رد بيرجع لـ 5 مصادر علمية معتمدة بس",
-          "نشرة Phesgo الدوائية (PI)، Genentech/Roche 2024",
-          "دراسة FeDeriCa — Tan AR et al. Lancet Oncol. 2021",
-          "دراسة PHranceSCa — O'Shaughnessy J et al. Eur J Cancer. 2021",
-          "دراسة Shash E et al. Ann Oncol. 2025 (الدراسة المصرية)",
-          "دليل إعطاء Phesgo SC للمتخصصين",
-        ],
-        materials: [
-          { type: "article", label: "دراسة FeDeriCa", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-          { type: "article", label: "دراسة PHranceSCa", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
-        ],
-      },
-      {
-        title: "حدود المعرفة الصارمة",
-        icon: "boundary",
-        color: "#1565C0",
-        bg: "#E3F2FD",
-        points: [
-          "الذكاء الاصطناعي بيتكلم في 14 موضوع محدد فقط عن Phesgo SC",
-          "أي سؤال بره النطاق بيتحول تلقائي للفريق الطبي",
-          "مش هيحاول أبداً يجاوب على أسئلة بره المحتوى المعتمد",
-        ],
-        materials: [],
-      },
-      {
-        title: "إجراءات محظورة",
-        icon: "block",
-        color: "#C62828",
-        bg: "#FFEBEE",
-        points: [
-          "مش بيوصي أبداً هل المريض يتعالج ولا لأ",
-          "مش بيقترح معايير اختيار المرضى",
-          "مش بيعدّل أو يقترح تغيير في الجرعات",
-          "مش بيتكلم عن استخدامات غير معتمدة أو تفاعلات أدوية",
-          "مش بيتكلم عن منتجات منافسة",
-          "مش بيدي نصايح عن الحمل/الرضاعة أو الأطفال",
-          "مش بيخترع أو يتخيل معلومات سريرية",
-        ],
-        materials: [],
-      },
-      {
-        title: "تصعيد الطوارئ",
-        icon: "emergency",
-        color: "#E65100",
-        bg: "#FFF3E0",
-        points: [
-          "بيكتشف كلمات الطوارئ بالعربي والإنجليزي",
-          "المحفزات: صدمة حساسية، توقف القلب، تفاعل شديد، صعوبة تنفس، خطأ في الجرعة",
-          "بيعرض بروتوكول الطوارئ فوراً — مش بيقدم أي إرشاد سريري للطوارئ",
-          "لافتة تحذير بتفضل ظاهرة لحد ما الجلسة تخلص",
-        ],
-        materials: [],
-      },
-      {
-        title: "ضوابط نموذج الذكاء الاصطناعي",
-        icon: "settings",
-        color: "#6A1B9A",
-        bg: "#F3E5F5",
-        points: [
-          "درجة الحرارة 0.3 — بتقلل الردود العشوائية والإبداعية",
-          "System prompt بأكتر من 200 سطر من الضوابط السريرية",
-          "حد أقصى 1000 token لكل رد — بيمنع الهلوسة الطويلة",
-          "نافذة السياق محدودة بآخر 20 رسالة للتركيز",
-          "نسخة المحتوى متتبعة: v1.0 (مارس 2025)",
-        ],
-        materials: [],
-      },
-      {
-        title: "الشفافية والمراجعة",
-        icon: "audit",
-        color: "#37474F",
-        bg: "#ECEFF1",
-        points: [
-          "كل المحادثات بتتسجل في localStorage بـ session IDs مجهولة",
-          "إخلاء المسؤولية بيظهر في شاشة الترحيب وفي أول كل محادثة",
-          "بيوضح صراحة إنه مش بديل عن التدريب العملي أو الفريق الطبي",
-          "رقم نسخة المحتوى بيتيح التتبع لما النشرة الدوائية تتحدث",
-        ],
-        materials: [],
-      },
-    ],
-  },
 };
 
 const ICON_MAP = {
@@ -304,7 +209,7 @@ const MAT_ICONS = { video: "▶️", article: "📄", infographic: "🖼️" };
 
 function QuickRefPanel({ lang, onClose }) {
   const isAr = lang === "ar";
-  const data = SAFETY_GUARDRAILS[isAr ? "ar" : "en"];
+  const data = SAFETY_GUARDRAILS.en;
   return (
     <div style={{
       position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
@@ -332,7 +237,6 @@ function QuickRefPanel({ lang, onClose }) {
       </div>
       <div style={{
         flex: 1, overflowY: "auto", padding: "12px 12px 24px",
-        direction: isAr ? "rtl" : "ltr",
       }}>
         {data.sections.map((sec, i) => (
           <div key={i} style={{
@@ -397,14 +301,6 @@ function QuickRefPanel({ lang, onClose }) {
             )}
           </div>
         ))}
-        {/* Version badge */}
-        <div style={{
-          textAlign: "center", padding: "8px 0 4px",
-          fontSize: 11, color: WA.textSecondary,
-          fontFamily: "'Segoe UI', system-ui, sans-serif",
-        }}>
-          {isAr ? "نسخة المحتوى: v1.0 | مارس 2025" : "Content Version: v1.0 | March 2025"}
-        </div>
       </div>
     </div>
   );
