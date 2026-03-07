@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PhesgoCalculator from './PhesgoCalculator'
 import PhesgoEmail from './PhesgoEmail'
-import OmnichannelTracker from './OmnichannelTracker'
+import NurseNadia from './NurseNadia'
 
 function App() {
   const [tab, setTab] = useState("calculator")
@@ -22,6 +22,7 @@ function App() {
         {[
           { id: "calculator", label: "Chair Capacity Calculator" },
           { id: "emailer", label: "Complementary Emailer" },
+          { id: "nadia", label: "Nurse Nadia" },
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             padding: "8px 20px", borderRadius: 8,
@@ -38,7 +39,7 @@ function App() {
       {/* Content */}
       {tab === "calculator" && <PhesgoCalculator her2={her2} setHer2={setHer2} adopt={adopt} setAdopt={setAdopt} />}
       {tab === "emailer" && <PhesgoEmail her2={her2} adopt={adopt} />}
-      {tab === "tracker" && <OmnichannelTracker />}
+      {tab === "nadia" && <NurseNadia />}
     </div>
   )
 }
