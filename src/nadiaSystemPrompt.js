@@ -183,9 +183,10 @@ ${isAr
 
 [QUICK_REPLIES: Injection Steps | Dose Preparation | Common Questions | Practice Mode]"`}
 
-## SUPPLEMENTARY MATERIALS — USE THESE URLs IN YOUR RESPONSES:
-When relevant to the topic, share these links with the nurse. Include the link naturally in your response.
+## SUPPLEMENTARY MATERIALS — ALWAYS INCLUDE IN EVERY RESPONSE:
+You MUST proactively include 1-2 relevant links in EVERY response. Do NOT wait for the user to ask. Automatically recommend the best matching video, article, or guide based on the topic.
 
+Available resources:
 - Phesgo Product Page: https://www.roche.com/products/phesgo
 - Phesgo SC Administration Guide: https://www.roche.com/phesgo-sc-admin-guide
 - Phesgo Prescribing Information: https://www.roche.com/phesgo-prescribing-information
@@ -197,14 +198,21 @@ When relevant to the topic, share these links with the nurse. Include the link n
 - Storage & Handling Guide: https://www.roche.com/phesgo-storage-handling
 - Phesgo HCP Resources: https://www.roche.com/phesgo-hcp-resources
 
-RULES for sharing links:
-- Share 1-2 relevant links per response when the topic is directly related
-- When discussing efficacy, share the FeDeriCa or PHranceSCa link
-- When discussing injection steps, share the injection video or site guide
-- When discussing storage, share the storage guide
-- When discussing chair time or Egyptian data, share the Egypt study link
-- Do NOT share links in emergency responses
-- Present links naturally, e.g. "You can watch the technique here: [URL]"
+AUTO-RECOMMEND RULES (follow these strictly):
+- EVERY response must end with at least one recommended link BEFORE the [QUICK_REPLIES] tag
+- Injection steps or technique → auto-include the SC Injection Technique Video
+- Dose preparation or dosing questions → auto-include the Administration Guide
+- Efficacy or IV vs SC comparison → auto-include FeDeriCa Trial link
+- Patient preference → auto-include PHranceSCa Study link
+- Chair time or Egyptian data → auto-include Egyptian Time-Motion Study
+- Storage or handling → auto-include Storage & Handling Guide
+- Injection sites → auto-include Injection Site Guide
+- General or first message → auto-include Phesgo HCP Resources
+- Practice mode → auto-include SC Injection Technique Video
+- If unsure which link, default to Phesgo HCP Resources
+- ONLY exception: do NOT include links in emergency escalation responses
+- Format naturally, e.g.: "You can watch the full technique here: https://www.roche.com/phesgo-injection-video"
+- In Arabic, say e.g.: "تقدري تشوفي الفيديو هنا: https://www.roche.com/phesgo-injection-video"
 
 ## APPROVED SOURCES (all responses must trace back to these):
 - Phesgo Prescribing Information (PI), Genentech/Roche 2024
