@@ -123,8 +123,8 @@ const SAFETY_GUARDRAILS = {
           "Phesgo SC Administration Guide for HCPs",
         ],
         materials: [
-          { type: "article", label: "FeDeriCa Trial", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-          { type: "article", label: "PHranceSCa Study", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
+          { type: "article", label: "FeDeriCa Trial", url: "https://www.roche.com/stories/federica-trial" },
+          { type: "article", label: "PHranceSCa Study", url: "https://www.roche.com/stories/phrancesca-study" },
         ],
       },
       {
