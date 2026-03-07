@@ -104,129 +104,212 @@ function WelcomeScreen({ onStart }) {
   );
 }
 
-const QUICK_REF = {
-  en: [
-    {
-      title: "Dosing",
-      icon: "💉",
-      points: ["Loading: pertuzumab 1200mg + trastuzumab 600mg (~8 min)", "Maintenance: 600/600mg (~5 min)", "Every 3 weeks — FIXED dose, no weight calculation"],
-      materials: [
-        { type: "video", label: "SC Injection Technique", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "article", label: "Phesgo Prescribing Information", url: "https://www.gene.com/download/pdf/phesgo_prescribing.pdf" },
-      ],
-    },
-    {
-      title: "Storage",
-      icon: "🧊",
-      points: ["2-8°C refrigerated, do not freeze", "Protect from light", "Once out of fridge: use within 24 hours"],
-      materials: [
-        { type: "infographic", label: "Storage Quick Card", url: "https://www.phesgo.com/hcp/storage-handling" },
-      ],
-    },
-    {
-      title: "Injection Sites",
-      icon: "🎯",
-      points: ["Thigh preferred", "Alternate left and right", "Avoid scars, bruises, or moles", "18G transfer needle, 25G injection needle"],
-      materials: [
-        { type: "video", label: "Injection Site Selection Guide", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "infographic", label: "Site Rotation Diagram", url: "https://www.phesgo.com/hcp/injection-sites" },
-      ],
-    },
-    {
-      title: "Observation Times",
-      icon: "⏱️",
-      points: ["30 min after first dose", "15 min after subsequent doses", "Monitor for injection site reactions"],
-      materials: [
-        { type: "article", label: "FeDeriCa Trial — Lancet Oncol.", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-      ],
-    },
-    {
-      title: "Key Evidence",
-      icon: "📊",
-      points: ["pCR 59.7% SC vs 59.5% IV (FeDeriCa)", "85% patients preferred SC (PHranceSCa)", "Chair time: 23 min SC vs 235 min IV (Shash 2025)"],
-      materials: [
-        { type: "article", label: "FeDeriCa Trial Results", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-        { type: "article", label: "PHranceSCa Patient Preference", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
-        { type: "article", label: "Egyptian Time-Motion Study", url: "https://doi.org/10.1093/annonc/mdac437.048" },
-      ],
-    },
-    {
-      title: "12 Admin Steps",
-      icon: "📋",
-      points: ["1. Verify prescription & patient ID", "2. Check vial integrity & expiry", "3. Room temp ~5 min", "4. Don't shake — swirl gently", "5. Withdraw full contents", "6. Select thigh site, alternate sides", "7. Clean with antiseptic", "8. Insert at 45° subcutaneously", "9. Inject slowly (8 min load / 5 min maint)", "10. Withdraw, gentle pressure, don't rub", "11. Observe (30/15 min)", "12. Document everything"],
-      materials: [
-        { type: "video", label: "Full Admin Walkthrough", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "infographic", label: "Step-by-Step Poster", url: "https://www.phesgo.com/hcp/admin-guide" },
-      ],
-    },
-  ],
-  ar: [
-    {
-      title: "الجرعات",
-      icon: "💉",
-      points: ["Loading: pertuzumab 1200mg + trastuzumab 600mg (~8 دقايق)", "Maintenance: 600/600mg (~5 دقايق)", "كل 3 أسابيع — جرعة ثابتة، مش محتاجة حساب وزن"],
-      materials: [
-        { type: "video", label: "طريقة حقن SC", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "article", label: "نشرة Phesgo الدوائية", url: "https://www.gene.com/download/pdf/phesgo_prescribing.pdf" },
-      ],
-    },
-    {
-      title: "التخزين",
-      icon: "🧊",
-      points: ["2-8 درجة مئوية في التلاجة، متتجمدش", "بعيد عن الضوء", "بعد ما تطلع من التلاجة: تُستخدم خلال 24 ساعة"],
-      materials: [
-        { type: "infographic", label: "كارت التخزين السريع", url: "https://www.phesgo.com/hcp/storage-handling" },
-      ],
-    },
-    {
-      title: "أماكن الحقن",
-      icon: "🎯",
-      points: ["الفخذ هو الأفضل", "بدّلي بين اليمين والشمال", "ابعدي عن الندبات والكدمات والشامات", "إبرة 18G للسحب، 25G للحقن"],
-      materials: [
-        { type: "video", label: "دليل اختيار مكان الحقن", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "infographic", label: "رسم توضيحي لتبديل الأماكن", url: "https://www.phesgo.com/hcp/injection-sites" },
-      ],
-    },
-    {
-      title: "أوقات المراقبة",
-      icon: "⏱️",
-      points: ["30 دقيقة بعد أول جرعة", "15 دقيقة بعد الجرعات اللي بعدها", "راقبي أي تفاعلات في مكان الحقن"],
-      materials: [
-        { type: "article", label: "دراسة FeDeriCa — Lancet Oncol.", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-      ],
-    },
-    {
-      title: "الأدلة العلمية",
-      icon: "📊",
-      points: ["pCR 59.7% SC مقابل 59.5% IV (دراسة FeDeriCa)", "85% من المرضى فضّلوا SC (دراسة PHranceSCa)", "وقت الكرسي: 23 دقيقة SC مقابل 235 دقيقة IV (دراسة Shash 2025)"],
-      materials: [
-        { type: "article", label: "نتائج دراسة FeDeriCa", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
-        { type: "article", label: "دراسة تفضيل المرضى PHranceSCa", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
-        { type: "article", label: "الدراسة المصرية للوقت", url: "https://doi.org/10.1093/annonc/mdac437.048" },
-      ],
-    },
-    {
-      title: "12 خطوة للإعطاء",
-      icon: "📋",
-      points: ["1. تأكدي من الوصفة وهوية المريض", "2. افحصي سلامة الزجاجة والصلاحية", "3. سيبيها ~5 دقايق بره التلاجة", "4. متهزيهاش — لفيها برفق", "5. اسحبي كل المحتوى", "6. اختاري الفخذ، بدّلي الجهات", "7. نظفي بالمطهر", "8. ادخلي الإبرة بزاوية 45° تحت الجلد", "9. احقني ببطء (8 دقايق loading / 5 دقايق maintenance)", "10. اسحبي الإبرة، اضغطي برفق، متفركيش", "11. راقبي (30/15 دقيقة)", "12. سجّلي كل حاجة"],
-      materials: [
-        { type: "video", label: "شرح كامل لخطوات الإعطاء", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-        { type: "infographic", label: "بوستر الخطوات", url: "https://www.phesgo.com/hcp/admin-guide" },
-      ],
-    },
-  ],
+const SAFETY_GUARDRAILS = {
+  en: {
+    header: "AI Safety & Guardrails",
+    subtitle: "How Nurse Nadia protects against incorrect medical information",
+    sections: [
+      {
+        title: "Approved Sources Only",
+        icon: "shield",
+        color: "#0D7C66",
+        bg: "#E8F5E9",
+        points: [
+          "Every response traces back to 5 pre-approved clinical sources only",
+          "Phesgo Prescribing Information (PI), Genentech/Roche 2024",
+          "FeDeriCa trial — Tan AR et al. Lancet Oncol. 2021",
+          "PHranceSCa — O'Shaughnessy J et al. Eur J Cancer. 2021",
+          "Shash E et al. Ann Oncol. 2025 (Egyptian time-motion study)",
+          "Phesgo SC Administration Guide for HCPs",
+        ],
+        materials: [
+          { type: "article", label: "FeDeriCa Trial", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+          { type: "article", label: "PHranceSCa Study", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
+        ],
+      },
+      {
+        title: "Strict Knowledge Boundary",
+        icon: "boundary",
+        color: "#1565C0",
+        bg: "#E3F2FD",
+        points: [
+          "AI can ONLY discuss 14 pre-defined topics about Phesgo SC administration",
+          "Any question outside scope triggers automatic escalation to medical team",
+          "Will never attempt to answer questions beyond its approved content",
+        ],
+        materials: [],
+      },
+      {
+        title: "Blocked Actions",
+        icon: "block",
+        color: "#C62828",
+        bg: "#FFEBEE",
+        points: [
+          "Never recommends whether to treat a patient",
+          "Never suggests patient selection criteria",
+          "Never modifies or suggests dosing changes",
+          "Never discusses off-label use or drug interactions",
+          "Never discusses competitor products",
+          "Never provides pregnancy/lactation or pediatric guidance",
+          "Never invents or hallucinates clinical information",
+        ],
+        materials: [],
+      },
+      {
+        title: "Emergency Escalation",
+        icon: "emergency",
+        color: "#E65100",
+        bg: "#FFF3E0",
+        points: [
+          "Detects emergency keywords in both Arabic and English",
+          "Triggers: anaphylaxis, cardiac arrest, severe reaction, breathing difficulty, dosing error",
+          "Immediately shows emergency protocol — never provides clinical emergency guidance",
+          "Visual warning banner persists until session ends",
+        ],
+        materials: [],
+      },
+      {
+        title: "AI Model Controls",
+        icon: "settings",
+        color: "#6A1B9A",
+        bg: "#F3E5F5",
+        points: [
+          "Temperature set to 0.3 — minimizes creative/random responses",
+          "System prompt with 200+ lines of clinical guardrails",
+          "Max 1000 tokens per response — prevents verbose hallucination",
+          "Context window limited to last 20 messages for relevance",
+          "Content version tracked: v1.0 (March 2025)",
+        ],
+        materials: [],
+      },
+      {
+        title: "Transparency & Audit",
+        icon: "audit",
+        color: "#37474F",
+        bg: "#ECEFF1",
+        points: [
+          "All conversations logged to localStorage with anonymous session IDs",
+          "Disclaimer shown on welcome screen and at top of every chat session",
+          "Clearly states it does not replace hands-on training or medical team",
+          "Content version number enables traceability when PI is updated",
+        ],
+        materials: [],
+      },
+    ],
+  },
+  ar: {
+    header: "حماية وسلامة الذكاء الاصطناعي",
+    subtitle: "كيف بنحمي ممرضة نادية من أي معلومات طبية غلط",
+    sections: [
+      {
+        title: "مصادر معتمدة فقط",
+        icon: "shield",
+        color: "#0D7C66",
+        bg: "#E8F5E9",
+        points: [
+          "كل رد بيرجع لـ 5 مصادر علمية معتمدة بس",
+          "نشرة Phesgo الدوائية (PI)، Genentech/Roche 2024",
+          "دراسة FeDeriCa — Tan AR et al. Lancet Oncol. 2021",
+          "دراسة PHranceSCa — O'Shaughnessy J et al. Eur J Cancer. 2021",
+          "دراسة Shash E et al. Ann Oncol. 2025 (الدراسة المصرية)",
+          "دليل إعطاء Phesgo SC للمتخصصين",
+        ],
+        materials: [
+          { type: "article", label: "دراسة FeDeriCa", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+          { type: "article", label: "دراسة PHranceSCa", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
+        ],
+      },
+      {
+        title: "حدود المعرفة الصارمة",
+        icon: "boundary",
+        color: "#1565C0",
+        bg: "#E3F2FD",
+        points: [
+          "الذكاء الاصطناعي بيتكلم في 14 موضوع محدد فقط عن Phesgo SC",
+          "أي سؤال بره النطاق بيتحول تلقائي للفريق الطبي",
+          "مش هيحاول أبداً يجاوب على أسئلة بره المحتوى المعتمد",
+        ],
+        materials: [],
+      },
+      {
+        title: "إجراءات محظورة",
+        icon: "block",
+        color: "#C62828",
+        bg: "#FFEBEE",
+        points: [
+          "مش بيوصي أبداً هل المريض يتعالج ولا لأ",
+          "مش بيقترح معايير اختيار المرضى",
+          "مش بيعدّل أو يقترح تغيير في الجرعات",
+          "مش بيتكلم عن استخدامات غير معتمدة أو تفاعلات أدوية",
+          "مش بيتكلم عن منتجات منافسة",
+          "مش بيدي نصايح عن الحمل/الرضاعة أو الأطفال",
+          "مش بيخترع أو يتخيل معلومات سريرية",
+        ],
+        materials: [],
+      },
+      {
+        title: "تصعيد الطوارئ",
+        icon: "emergency",
+        color: "#E65100",
+        bg: "#FFF3E0",
+        points: [
+          "بيكتشف كلمات الطوارئ بالعربي والإنجليزي",
+          "المحفزات: صدمة حساسية، توقف القلب، تفاعل شديد، صعوبة تنفس، خطأ في الجرعة",
+          "بيعرض بروتوكول الطوارئ فوراً — مش بيقدم أي إرشاد سريري للطوارئ",
+          "لافتة تحذير بتفضل ظاهرة لحد ما الجلسة تخلص",
+        ],
+        materials: [],
+      },
+      {
+        title: "ضوابط نموذج الذكاء الاصطناعي",
+        icon: "settings",
+        color: "#6A1B9A",
+        bg: "#F3E5F5",
+        points: [
+          "درجة الحرارة 0.3 — بتقلل الردود العشوائية والإبداعية",
+          "System prompt بأكتر من 200 سطر من الضوابط السريرية",
+          "حد أقصى 1000 token لكل رد — بيمنع الهلوسة الطويلة",
+          "نافذة السياق محدودة بآخر 20 رسالة للتركيز",
+          "نسخة المحتوى متتبعة: v1.0 (مارس 2025)",
+        ],
+        materials: [],
+      },
+      {
+        title: "الشفافية والمراجعة",
+        icon: "audit",
+        color: "#37474F",
+        bg: "#ECEFF1",
+        points: [
+          "كل المحادثات بتتسجل في localStorage بـ session IDs مجهولة",
+          "إخلاء المسؤولية بيظهر في شاشة الترحيب وفي أول كل محادثة",
+          "بيوضح صراحة إنه مش بديل عن التدريب العملي أو الفريق الطبي",
+          "رقم نسخة المحتوى بيتيح التتبع لما النشرة الدوائية تتحدث",
+        ],
+        materials: [],
+      },
+    ],
+  },
+};
+
+const ICON_MAP = {
+  shield: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>,
+  boundary: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>,
+  block: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>,
+  emergency: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  settings: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>,
+  audit: (c) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>,
 };
 
 const MAT_ICONS = { video: "▶️", article: "📄", infographic: "🖼️" };
 
 function QuickRefPanel({ lang, onClose }) {
   const isAr = lang === "ar";
-  const items = QUICK_REF[isAr ? "ar" : "en"];
+  const data = SAFETY_GUARDRAILS[isAr ? "ar" : "en"];
   return (
     <div style={{
       position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
       zIndex: 60, display: "flex", flexDirection: "column",
-      background: WA.chatBg,
+      background: "#F4F6F8",
     }}>
       <div style={{
         display: "flex", alignItems: "center", padding: "10px 12px",
@@ -236,36 +319,71 @@ function QuickRefPanel({ lang, onClose }) {
           background: "none", border: "none", color: "#fff",
           fontSize: 22, cursor: "pointer", marginRight: 8, padding: "2px 6px",
         }}>←</button>
-        <div style={{
-          fontSize: 16, fontWeight: 700,
-          fontFamily: "'Segoe UI', system-ui, sans-serif",
-        }}>{isAr ? "مرجع سريع" : "Quick Reference"}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{
+            fontSize: 15, fontWeight: 700,
+            fontFamily: "'Segoe UI', system-ui, sans-serif",
+          }}>{data.header}</div>
+          <div style={{
+            fontSize: 10, opacity: 0.8,
+            fontFamily: "'Segoe UI', system-ui, sans-serif",
+          }}>{data.subtitle}</div>
+        </div>
       </div>
-      <div style={{ flex: 1, overflowY: "auto", padding: "12px 12px 24px" }}>
-        {items.map((item, i) => (
+      <div style={{
+        flex: 1, overflowY: "auto", padding: "12px 12px 24px",
+        direction: isAr ? "rtl" : "ltr",
+      }}>
+        {data.sections.map((sec, i) => (
           <div key={i} style={{
-            background: "#fff", borderRadius: 12, padding: 14,
-            marginBottom: 10, boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-            direction: isAr ? "rtl" : "ltr",
+            background: "#fff", borderRadius: 14, padding: 0,
+            marginBottom: 12, boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+            overflow: "hidden",
           }}>
+            {/* Section header with icon */}
             <div style={{
-              fontSize: 15, fontWeight: 700, marginBottom: 8,
-              color: WA.textPrimary, fontFamily: "'Segoe UI', system-ui, sans-serif",
-            }}>{item.icon} {item.title}</div>
-            {item.points.map((p, j) => (
-              <div key={j} style={{
-                fontSize: 13, color: WA.textPrimary, lineHeight: 1.6,
-                paddingLeft: isAr ? 0 : 8, paddingRight: isAr ? 8 : 0,
-                fontFamily: "'Segoe UI', system-ui, sans-serif",
-              }}>• {p}</div>
-            ))}
-            {item.materials.length > 0 && (
+              display: "flex", alignItems: "center", gap: 10,
+              padding: "12px 14px", background: sec.bg,
+              borderBottom: `2px solid ${sec.color}20`,
+            }}>
               <div style={{
-                marginTop: 10, paddingTop: 8,
+                width: 34, height: 34, borderRadius: 10,
+                background: "#fff", display: "flex", alignItems: "center",
+                justifyContent: "center", flexShrink: 0,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+              }}>{ICON_MAP[sec.icon](sec.color)}</div>
+              <div style={{
+                fontSize: 14, fontWeight: 700, color: sec.color,
+                fontFamily: "'Segoe UI', system-ui, sans-serif",
+              }}>{sec.title}</div>
+            </div>
+            {/* Points */}
+            <div style={{ padding: "10px 14px" }}>
+              {sec.points.map((p, j) => (
+                <div key={j} style={{
+                  display: "flex", alignItems: "flex-start", gap: 8,
+                  marginBottom: j < sec.points.length - 1 ? 6 : 0,
+                }}>
+                  <div style={{
+                    width: 6, height: 6, borderRadius: "50%",
+                    background: sec.color, marginTop: 6, flexShrink: 0,
+                    opacity: 0.6,
+                  }} />
+                  <div style={{
+                    fontSize: 12.5, color: WA.textPrimary, lineHeight: 1.55,
+                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                  }}>{p}</div>
+                </div>
+              ))}
+            </div>
+            {/* Supplementary materials */}
+            {sec.materials.length > 0 && (
+              <div style={{
+                padding: "8px 14px 12px",
                 borderTop: "1px solid #E2E6EC",
                 display: "flex", flexWrap: "wrap", gap: 6,
               }}>
-                {item.materials.map((m, k) => (
+                {sec.materials.map((m, k) => (
                   <a key={k} href={m.url} target="_blank" rel="noopener noreferrer" style={{
                     display: "inline-flex", alignItems: "center", gap: 4,
                     padding: "5px 10px", borderRadius: 16,
@@ -279,6 +397,14 @@ function QuickRefPanel({ lang, onClose }) {
             )}
           </div>
         ))}
+        {/* Version badge */}
+        <div style={{
+          textAlign: "center", padding: "8px 0 4px",
+          fontSize: 11, color: WA.textSecondary,
+          fontFamily: "'Segoe UI', system-ui, sans-serif",
+        }}>
+          {isAr ? "نسخة المحتوى: v1.0 | مارس 2025" : "Content Version: v1.0 | March 2025"}
+        </div>
       </div>
     </div>
   );
@@ -313,7 +439,7 @@ function ChatHeader({ lang, onToggleLang, onOpenRef }) {
         fontSize: 11, fontWeight: 600, cursor: "pointer",
         fontFamily: "'Segoe UI', system-ui, sans-serif",
         marginRight: 6,
-      }}>{isAr ? "مرجع" : "Quick Ref"}</button>
+      }}>{isAr ? "الحماية" : "Safety"}</button>
       <button onClick={onToggleLang} style={{
         padding: "6px 14px", borderRadius: 20, border: "1px solid rgba(255,255,255,0.3)",
         background: "rgba(255,255,255,0.1)", color: "#fff",
