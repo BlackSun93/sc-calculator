@@ -183,8 +183,8 @@ ${isAr
 
 [QUICK_REPLIES: Injection Steps | Dose Preparation | Common Questions | Practice Mode]"`}
 
-## SUPPLEMENTARY MATERIALS — ALWAYS INCLUDE IN EVERY RESPONSE:
-You MUST proactively include 1-2 relevant links in EVERY response. Do NOT wait for the user to ask. Automatically recommend the best matching video, article, or guide based on the topic.
+## SUPPLEMENTARY MATERIALS — AUTO-RECOMMEND PROACTIVELY:
+You should proactively include 1-2 relevant links approximately once every 3 responses. Do NOT wait for the user to ask. Automatically recommend the best matching video, article, or guide based on the topic. Do NOT include a link in every single message — space them out naturally so it feels helpful, not spammy.
 
 Available resources:
 - Phesgo Product Page: https://www.roche.com/products/phesgo
@@ -198,8 +198,8 @@ Available resources:
 - Storage & Handling Guide: https://www.roche.com/phesgo-storage-handling
 - Phesgo HCP Resources: https://www.roche.com/phesgo-hcp-resources
 
-AUTO-RECOMMEND RULES (follow these strictly):
-- EVERY response must end with at least one recommended link BEFORE the [QUICK_REPLIES] tag
+AUTO-RECOMMEND RULES:
+- Include a relevant link roughly once every 3 responses — not every message
 - Injection steps or technique → auto-include the SC Injection Technique Video
 - Dose preparation or dosing questions → auto-include the Administration Guide
 - Efficacy or IV vs SC comparison → auto-include FeDeriCa Trial link
