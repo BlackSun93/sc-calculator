@@ -104,7 +104,187 @@ function WelcomeScreen({ onStart }) {
   );
 }
 
-function ChatHeader({ lang, onToggleLang }) {
+const QUICK_REF = {
+  en: [
+    {
+      title: "Dosing",
+      icon: "💉",
+      points: ["Loading: pertuzumab 1200mg + trastuzumab 600mg (~8 min)", "Maintenance: 600/600mg (~5 min)", "Every 3 weeks — FIXED dose, no weight calculation"],
+      materials: [
+        { type: "video", label: "SC Injection Technique", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "article", label: "Phesgo Prescribing Information", url: "https://www.gene.com/download/pdf/phesgo_prescribing.pdf" },
+      ],
+    },
+    {
+      title: "Storage",
+      icon: "🧊",
+      points: ["2-8°C refrigerated, do not freeze", "Protect from light", "Once out of fridge: use within 24 hours"],
+      materials: [
+        { type: "infographic", label: "Storage Quick Card", url: "https://www.phesgo.com/hcp/storage-handling" },
+      ],
+    },
+    {
+      title: "Injection Sites",
+      icon: "🎯",
+      points: ["Thigh preferred", "Alternate left and right", "Avoid scars, bruises, or moles", "18G transfer needle, 25G injection needle"],
+      materials: [
+        { type: "video", label: "Injection Site Selection Guide", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "infographic", label: "Site Rotation Diagram", url: "https://www.phesgo.com/hcp/injection-sites" },
+      ],
+    },
+    {
+      title: "Observation Times",
+      icon: "⏱️",
+      points: ["30 min after first dose", "15 min after subsequent doses", "Monitor for injection site reactions"],
+      materials: [
+        { type: "article", label: "FeDeriCa Trial — Lancet Oncol.", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+      ],
+    },
+    {
+      title: "Key Evidence",
+      icon: "📊",
+      points: ["pCR 59.7% SC vs 59.5% IV (FeDeriCa)", "85% patients preferred SC (PHranceSCa)", "Chair time: 23 min SC vs 235 min IV (Shash 2025)"],
+      materials: [
+        { type: "article", label: "FeDeriCa Trial Results", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+        { type: "article", label: "PHranceSCa Patient Preference", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
+        { type: "article", label: "Egyptian Time-Motion Study", url: "https://doi.org/10.1093/annonc/mdac437.048" },
+      ],
+    },
+    {
+      title: "12 Admin Steps",
+      icon: "📋",
+      points: ["1. Verify prescription & patient ID", "2. Check vial integrity & expiry", "3. Room temp ~5 min", "4. Don't shake — swirl gently", "5. Withdraw full contents", "6. Select thigh site, alternate sides", "7. Clean with antiseptic", "8. Insert at 45° subcutaneously", "9. Inject slowly (8 min load / 5 min maint)", "10. Withdraw, gentle pressure, don't rub", "11. Observe (30/15 min)", "12. Document everything"],
+      materials: [
+        { type: "video", label: "Full Admin Walkthrough", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "infographic", label: "Step-by-Step Poster", url: "https://www.phesgo.com/hcp/admin-guide" },
+      ],
+    },
+  ],
+  ar: [
+    {
+      title: "الجرعات",
+      icon: "💉",
+      points: ["Loading: pertuzumab 1200mg + trastuzumab 600mg (~8 دقايق)", "Maintenance: 600/600mg (~5 دقايق)", "كل 3 أسابيع — جرعة ثابتة، مش محتاجة حساب وزن"],
+      materials: [
+        { type: "video", label: "طريقة حقن SC", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "article", label: "نشرة Phesgo الدوائية", url: "https://www.gene.com/download/pdf/phesgo_prescribing.pdf" },
+      ],
+    },
+    {
+      title: "التخزين",
+      icon: "🧊",
+      points: ["2-8 درجة مئوية في التلاجة، متتجمدش", "بعيد عن الضوء", "بعد ما تطلع من التلاجة: تُستخدم خلال 24 ساعة"],
+      materials: [
+        { type: "infographic", label: "كارت التخزين السريع", url: "https://www.phesgo.com/hcp/storage-handling" },
+      ],
+    },
+    {
+      title: "أماكن الحقن",
+      icon: "🎯",
+      points: ["الفخذ هو الأفضل", "بدّلي بين اليمين والشمال", "ابعدي عن الندبات والكدمات والشامات", "إبرة 18G للسحب، 25G للحقن"],
+      materials: [
+        { type: "video", label: "دليل اختيار مكان الحقن", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "infographic", label: "رسم توضيحي لتبديل الأماكن", url: "https://www.phesgo.com/hcp/injection-sites" },
+      ],
+    },
+    {
+      title: "أوقات المراقبة",
+      icon: "⏱️",
+      points: ["30 دقيقة بعد أول جرعة", "15 دقيقة بعد الجرعات اللي بعدها", "راقبي أي تفاعلات في مكان الحقن"],
+      materials: [
+        { type: "article", label: "دراسة FeDeriCa — Lancet Oncol.", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+      ],
+    },
+    {
+      title: "الأدلة العلمية",
+      icon: "📊",
+      points: ["pCR 59.7% SC مقابل 59.5% IV (دراسة FeDeriCa)", "85% من المرضى فضّلوا SC (دراسة PHranceSCa)", "وقت الكرسي: 23 دقيقة SC مقابل 235 دقيقة IV (دراسة Shash 2025)"],
+      materials: [
+        { type: "article", label: "نتائج دراسة FeDeriCa", url: "https://doi.org/10.1016/S1470-2045(20)30458-0" },
+        { type: "article", label: "دراسة تفضيل المرضى PHranceSCa", url: "https://doi.org/10.1016/j.ejca.2021.04.002" },
+        { type: "article", label: "الدراسة المصرية للوقت", url: "https://doi.org/10.1093/annonc/mdac437.048" },
+      ],
+    },
+    {
+      title: "12 خطوة للإعطاء",
+      icon: "📋",
+      points: ["1. تأكدي من الوصفة وهوية المريض", "2. افحصي سلامة الزجاجة والصلاحية", "3. سيبيها ~5 دقايق بره التلاجة", "4. متهزيهاش — لفيها برفق", "5. اسحبي كل المحتوى", "6. اختاري الفخذ، بدّلي الجهات", "7. نظفي بالمطهر", "8. ادخلي الإبرة بزاوية 45° تحت الجلد", "9. احقني ببطء (8 دقايق loading / 5 دقايق maintenance)", "10. اسحبي الإبرة، اضغطي برفق، متفركيش", "11. راقبي (30/15 دقيقة)", "12. سجّلي كل حاجة"],
+      materials: [
+        { type: "video", label: "شرح كامل لخطوات الإعطاء", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "infographic", label: "بوستر الخطوات", url: "https://www.phesgo.com/hcp/admin-guide" },
+      ],
+    },
+  ],
+};
+
+const MAT_ICONS = { video: "▶️", article: "📄", infographic: "🖼️" };
+
+function QuickRefPanel({ lang, onClose }) {
+  const isAr = lang === "ar";
+  const items = QUICK_REF[isAr ? "ar" : "en"];
+  return (
+    <div style={{
+      position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+      zIndex: 60, display: "flex", flexDirection: "column",
+      background: WA.chatBg,
+    }}>
+      <div style={{
+        display: "flex", alignItems: "center", padding: "10px 12px",
+        background: WA.headerBg, color: "#fff", flexShrink: 0,
+      }}>
+        <button onClick={onClose} style={{
+          background: "none", border: "none", color: "#fff",
+          fontSize: 22, cursor: "pointer", marginRight: 8, padding: "2px 6px",
+        }}>←</button>
+        <div style={{
+          fontSize: 16, fontWeight: 700,
+          fontFamily: "'Segoe UI', system-ui, sans-serif",
+        }}>{isAr ? "مرجع سريع" : "Quick Reference"}</div>
+      </div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "12px 12px 24px" }}>
+        {items.map((item, i) => (
+          <div key={i} style={{
+            background: "#fff", borderRadius: 12, padding: 14,
+            marginBottom: 10, boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+            direction: isAr ? "rtl" : "ltr",
+          }}>
+            <div style={{
+              fontSize: 15, fontWeight: 700, marginBottom: 8,
+              color: WA.textPrimary, fontFamily: "'Segoe UI', system-ui, sans-serif",
+            }}>{item.icon} {item.title}</div>
+            {item.points.map((p, j) => (
+              <div key={j} style={{
+                fontSize: 13, color: WA.textPrimary, lineHeight: 1.6,
+                paddingLeft: isAr ? 0 : 8, paddingRight: isAr ? 8 : 0,
+                fontFamily: "'Segoe UI', system-ui, sans-serif",
+              }}>• {p}</div>
+            ))}
+            {item.materials.length > 0 && (
+              <div style={{
+                marginTop: 10, paddingTop: 8,
+                borderTop: "1px solid #E2E6EC",
+                display: "flex", flexWrap: "wrap", gap: 6,
+              }}>
+                {item.materials.map((m, k) => (
+                  <a key={k} href={m.url} target="_blank" rel="noopener noreferrer" style={{
+                    display: "inline-flex", alignItems: "center", gap: 4,
+                    padding: "5px 10px", borderRadius: 16,
+                    background: m.type === "video" ? "#FFEBEE" : m.type === "article" ? "#E3F2FD" : "#F3E5F5",
+                    color: m.type === "video" ? "#C62828" : m.type === "article" ? "#1565C0" : "#7B1FA2",
+                    fontSize: 11, fontWeight: 600, textDecoration: "none",
+                    fontFamily: "'Segoe UI', system-ui, sans-serif",
+                  }}>{MAT_ICONS[m.type]} {m.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ChatHeader({ lang, onToggleLang, onOpenRef }) {
   const isAr = lang === "ar";
   return (
     <div style={{
@@ -127,6 +307,13 @@ function ChatHeader({ lang, onToggleLang }) {
           fontFamily: "'Segoe UI', system-ui, sans-serif",
         }}>Phesgo SC Guide</div>
       </div>
+      <button onClick={onOpenRef} style={{
+        padding: "6px 12px", borderRadius: 20, border: "1px solid rgba(255,255,255,0.3)",
+        background: "rgba(255,255,255,0.15)", color: "#fff",
+        fontSize: 11, fontWeight: 600, cursor: "pointer",
+        fontFamily: "'Segoe UI', system-ui, sans-serif",
+        marginRight: 6,
+      }}>{isAr ? "مرجع" : "Quick Ref"}</button>
       <button onClick={onToggleLang} style={{
         padding: "6px 14px", borderRadius: 20, border: "1px solid rgba(255,255,255,0.3)",
         background: "rgba(255,255,255,0.1)", color: "#fff",
@@ -306,6 +493,7 @@ export default function NurseNadia() {
   const [sessionId] = useState(generateSessionId);
   const [quickReplies, setQuickReplies] = useState([]);
   const [showEmergency, setShowEmergency] = useState(false);
+  const [showRef, setShowRef] = useState(false);
   const scrollRef = useRef(null);
 
   // Auto-scroll to bottom
@@ -432,7 +620,9 @@ export default function NurseNadia() {
       display: "flex", flexDirection: "column",
       height: "calc(100vh - 49px)", background: WA.chatBg,
     }}>
-      <ChatHeader lang={lang} onToggleLang={toggleLang} />
+      <ChatHeader lang={lang} onToggleLang={toggleLang} onOpenRef={() => setShowRef(true)} />
+
+      {showRef && <QuickRefPanel lang={lang} onClose={() => setShowRef(false)} />}
 
       {showEmergency && <EmergencyBanner lang={lang} />}
 
