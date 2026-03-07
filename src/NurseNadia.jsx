@@ -175,7 +175,6 @@ const SAFETY_GUARDRAILS = {
           "System prompt with 200+ lines of clinical guardrails",
           "Max 1000 tokens per response — prevents verbose hallucination",
           "Context window limited to last 20 messages for relevance",
-          "Content version tracked: v1.0 (March 2025)",
         ],
         materials: [],
       },
