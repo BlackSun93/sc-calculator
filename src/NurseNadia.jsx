@@ -360,12 +360,13 @@ export default function NurseNadia() {
       setQuickReplies(replies);
     } catch (err) {
       console.error("Nadia API error:", err);
+      const errorText = lang === "ar"
+        ? "معلش، حصل مشكلة تقنية. جربي تاني كمان شوية."
+        : "Sorry, something went wrong. Please try again in a moment.";
       const errorMsg = {
         role: "assistant",
-        text: lang === "ar"
-          ? "معلش، حصل مشكلة تقنية. جربي تاني كمان شوية."
-          : "Sorry, something went wrong. Please try again in a moment.",
-        content: "",
+        text: errorText,
+        content: errorText,
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, errorMsg]);
@@ -393,12 +394,11 @@ export default function NurseNadia() {
         setQuickReplies(replies);
       })
       .catch(() => {
+        const fallbackText = selectedLang === "ar"
+          ? "أهلاً! أنا نادية، ممرضة أورام زيك بالظبط 😊 أنا هنا أساعدك تحسي بثقة في إعطاء Phesgo SC. إيه اللي تحبي نبدأ بيه؟"
+          : "Hi! I'm Nadia, an oncology nurse just like you 😊 I'm here to help you feel confident giving Phesgo SC. What would you like to start with?";
         setMessages(prev => [...prev, {
-          role: "assistant",
-          text: selectedLang === "ar"
-            ? "أهلاً! أنا نادية، ممرضة أورام زيك بالظبط 😊 أنا هنا أساعدك تحسي بثقة في إعطاء Phesgo SC. إيه اللي تحبي نبدأ بيه؟"
-            : "Hi! I'm Nadia, an oncology nurse just like you 😊 I'm here to help you feel confident giving Phesgo SC. What would you like to start with?",
-          content: "", timestamp: Date.now(),
+          role: "assistant", text: fallbackText, content: fallbackText, timestamp: Date.now(),
         }]);
         setQuickReplies(selectedLang === "ar"
           ? ["خطوات الحقن", "تحضير الجرعة", "أسئلة شائعة", "تدريب عملي"]
@@ -410,12 +410,12 @@ export default function NurseNadia() {
   function toggleLang() {
     const newLang = lang === "ar" ? "en" : "ar";
     setLang(newLang);
+    const langText = newLang === "ar"
+      ? "تم التحويل للعربي. أنا نادية، كملي اسألي أي حاجة 😊"
+      : "Switched to English. I'm Nadia, feel free to ask anything 😊";
     const sysMsg = {
       role: "assistant",
-      text: newLang === "ar"
-        ? "تم التحويل للعربي. أنا نادية، كملي اسألي أي حاجة 😊"
-        : "Switched to English. I'm Nadia, feel free to ask anything 😊",
-      content: "", timestamp: Date.now(),
+      text: langText, content: langText, timestamp: Date.now(),
     };
     setMessages(prev => [...prev, sysMsg]);
     setQuickReplies(newLang === "ar"

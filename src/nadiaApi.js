@@ -1,7 +1,7 @@
 // Gemini API helper for Nurse Nadia chatbot
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
 
 export async function sendMessage(messages, systemPrompt) {
   const contents = messages.map(m => ({
