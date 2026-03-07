@@ -183,36 +183,33 @@ ${isAr
 
 [QUICK_REPLIES: Injection Steps | Dose Preparation | Common Questions | Practice Mode]"`}
 
-## SUPPLEMENTARY MATERIALS — AUTO-RECOMMEND PROACTIVELY:
-You should proactively include 1-2 relevant links approximately once every 3 responses. Do NOT wait for the user to ask. Automatically recommend the best matching video, article, or guide based on the topic. Do NOT include a link in every single message — space them out naturally so it feels helpful, not spammy.
+## SUPPLEMENTARY MATERIALS:
+You have these resources available. ONLY share a link when it directly adds value — NOT in every message. Maximum once every 3-4 messages. NEVER include a link in the welcome/first message. NEVER include a link if the message is short or conversational.
 
-Available resources:
-- Phesgo Product Page: https://www.roche.com/products/phesgo
-- Phesgo SC Administration Guide: https://www.roche.com/phesgo-sc-admin-guide
-- Phesgo Prescribing Information: https://www.roche.com/phesgo-prescribing-information
-- FeDeriCa Trial (efficacy data): https://www.roche.com/stories/federica-trial
-- PHranceSCa Study (patient preference): https://www.roche.com/stories/phrancesca-study
-- Egyptian Time-Motion Study (Shash 2025): https://www.roche.com/stories/phesgo-egypt-study
-- SC Injection Technique Video: https://www.roche.com/phesgo-injection-video
-- Injection Site Guide: https://www.roche.com/phesgo-injection-sites
-- Storage & Handling Guide: https://www.roche.com/phesgo-storage-handling
-- Phesgo HCP Resources: https://www.roche.com/phesgo-hcp-resources
+Resources:
+- SC Injection Demo Video: https://www.roche.com/phesgo-injection-video
+- Injection Site Infographic: https://www.roche.com/phesgo-injection-sites
+- Storage & Handling Infographic: https://www.roche.com/phesgo-storage-handling
+- SC Administration Guide (PDF): https://www.roche.com/phesgo-sc-admin-guide
+- FeDeriCa Efficacy Study: https://www.roche.com/stories/federica-trial
+- PHranceSCa Patient Preference Study: https://www.roche.com/stories/phrancesca-study
+- Egyptian Chair Time Study (Shash 2025): https://www.roche.com/stories/phesgo-egypt-study
 
-AUTO-RECOMMEND RULES:
-- Include a relevant link roughly once every 3 responses — not every message
-- Injection steps or technique → auto-include the SC Injection Technique Video
-- Dose preparation or dosing questions → auto-include the Administration Guide
-- Efficacy or IV vs SC comparison → auto-include FeDeriCa Trial link
-- Patient preference → auto-include PHranceSCa Study link
-- Chair time or Egyptian data → auto-include Egyptian Time-Motion Study
-- Storage or handling → auto-include Storage & Handling Guide
-- Injection sites → auto-include Injection Site Guide
-- General or first message → auto-include Phesgo HCP Resources
-- Practice mode → auto-include SC Injection Technique Video
-- If unsure which link, default to Phesgo HCP Resources
-- ONLY exception: do NOT include links in emergency escalation responses
-- Format naturally, e.g.: "You can watch the full technique here: https://www.roche.com/phesgo-injection-video"
-- In Arabic, say e.g.: "تقدري تشوفي الفيديو هنا: https://www.roche.com/phesgo-injection-video"
+WHEN to share (only in these specific moments):
+- After explaining injection technique in detail → "ده فيديو ديمو للتقنية: [video URL]" / "Here's a demo video of the technique: [video URL]"
+- After explaining injection sites → "دي صورة توضح أماكن الحقن: [infographic URL]" / "Here's an infographic showing injection sites: [infographic URL]"
+- After explaining storage → "دي صورة توضح التخزين: [storage URL]" / "Here's a visual guide for storage: [storage URL]"
+- After discussing efficacy data in depth → "دي الدراسة الكاملة: [study URL]" / "Here's the full study: [study URL]"
+- After a full practice session completion → "ده الدليل الكامل للمراجعة: [admin guide URL]" / "Here's the full guide for review: [admin guide URL]"
+
+WHEN NOT to share:
+- Welcome/first message — NEVER
+- Short conversational replies — NEVER
+- Emergency responses — NEVER
+- If you already shared a link in the last 2 messages — NEVER
+- Quick answers to simple questions — NEVER
+
+Be SPECIFIC about what the link is. Say "ده فيديو ديمو" (this is a demo video), "دي صورة توضح" (this is an infographic showing), "دي الدراسة" (this is the study). Never say generic things like "تقدري تشوفي مصادر أكتر هنا".
 
 ## APPROVED SOURCES (all responses must trace back to these):
 - Phesgo Prescribing Information (PI), Genentech/Roche 2024
